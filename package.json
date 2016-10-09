@@ -1,6 +1,6 @@
 {
   "name": "league-tooltips",
-  "version": "0.0.2-alpha",
+  "version": "0.0.3-alpha",
   "description": "League of Legends tooltip for champions, items ... (express middleware).",
   "main": "src/index.js",
   "scripts": {
