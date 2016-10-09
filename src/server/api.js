@@ -75,6 +75,10 @@ class Api {
     this.locale = locale || 'en_US';
   }
 
+  getSources () {
+    return _.keys(sources);
+  }
+
   async getData (dataType, id) {
     if (!sources.hasOwnProperty(dataType))
       throw new Error(`unknown data type : ${dataType}`);

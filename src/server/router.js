@@ -16,25 +16,6 @@ async function handleDataRequest (dataType, req, res, next) {
   next();
 }
 
-const dataRoutes = {
-  // TODO: Iterate through api.getSources()
-  '/item/:id': function (...params) {
-    handleDataRequest.call(this, 'item', ...params);
-  },
-  '/champion/:id': function (...params) {
-    handleDataRequest.call(this, 'champion', ...params);
-  },
-  '/spell/:id': function (...params) {
-    handleDataRequest.call(this, 'spell', ...params);
-  },
-  '/rune/:id': function (...params) {
-    handleDataRequest.call(this, 'rune', ...params);
-  },
-  '/mastery/:id': function (...params) {
-    handleDataRequest.call(this, 'mastery', ...params);
-  }
-};
-
 function createRouter (apiKey, region, route, opts) {
   // Format the params in an object for future routes
   const params = { apiKey: apiKey, region, region, route: route, opts: opts || {} };
@@ -47,8 +28,11 @@ function createRouter (apiKey, region, route, opts) {
 
   const router = express.Router();
   const api = new Api(params.apiKey, params.region, { protocol: opts.protocol, locale: opts.locale });
-  for (const route in dataRoutes) {
-    router.get(route, dataRoutes[route].bind({ api: api }));
+  const sources = api.getSources();
+  for (let source of sources) {
+    router.get(`/${source}/:id`, (...params) => {
+      handleDataRequest.call({ api: api }, source, ...params);
+    });
   }
 
   const fileName = opts.fileName || 'league-tips.min.js';
