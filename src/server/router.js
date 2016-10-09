@@ -1,0 +1,68 @@
+import path from 'path';
+import fs from 'fs';
+import express from 'express';
+import { Api } from './api';
+
+// TODO: Set the locale in the api requests instead of a static value in the middleware config
+
+async function handleDataRequest (dataType, req, res, next) {
+  try {
+    // 'this' is bound to an Api instance
+    const data = await this.api.getData(dataType, req.params.id);
+    res.send(JSON.stringify(data)); // TODO: HTTP code : 200
+  } catch (err) {
+    res.send(JSON.stringify({ err: err.message })); // TODO: HTTP code : 500
+  }
+  next();
+}
+
+const dataRoutes = {
+  // TODO: Iterate through api.getSources()
+  '/item/:id': function (...params) {
+    handleDataRequest.call(this, 'item', ...params);
+  },
+  '/champion/:id': function (...params) {
+    handleDataRequest.call(this, 'champion', ...params);
+  },
+  '/spell/:id': function (...params) {
+    handleDataRequest.call(this, 'spell', ...params);
+  },
+  '/rune/:id': function (...params) {
+    handleDataRequest.call(this, 'rune', ...params);
+  },
+  '/mastery/:id': function (...params) {
+    handleDataRequest.call(this, 'mastery', ...params);
+  }
+};
+
+function createRouter (apiKey, region, route, opts) {
+  // Format the params in an object for future routes
+  const params = { apiKey: apiKey, region, region, route: route, opts: opts || {} };
+  if (!params.apiKey) {
+    throw new Error('api key undefined');
+  }
+  if (!params.region) {
+    throw new Error('region undefined');
+  }
+
+  const router = express.Router();
+  const api = new Api(params.apiKey, params.region, { protocol: opts.protocol, locale: opts.locale });
+  for (const route in dataRoutes) {
+    router.get(route, dataRoutes[route].bind({ api: api }));
+  }
+
+  const fileName = opts.fileName || 'league-tips.min.js';
+  const originalClientFile = fs.readFileSync(path.resolve(__dirname, '../client', 'league-tips.min.js'), { encoding: 'utf-8' });
+  const clientFile = originalClientFile.replace('$BASE_ROUTE', `'${params.route}'`);
+  router.get('/' + fileName, (req, res, next) => {
+    res.setHeader('Content-Type', 'application/javascript');
+    res.send(clientFile);
+  });
+  router.get('/html/:type.html', (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, '../client/views', `tooltip-${req.params.type}.html`));
+  });
+  router.use('/styles', express.static(path.resolve(__dirname, '../client/styles')));
+  return router;
+}
+
+export { createRouter };

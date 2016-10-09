@@ -1,0 +1,253 @@
+#league-tooltip .clearfix {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+#league-tooltip .league-tooltip {
+}
+
+#league-tooltip {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  color: white;
+  position: absolute;
+  max-width: 40%;
+}
+
+#league-tooltip h1,
+#league-tooltip h2,
+#league-tooltip h3,
+#league-tooltip h4,
+#league-tooltip h5,
+#league-tooltip h6,
+#league-tooltip p {
+  margin: 0;
+}
+
+#league-tooltip h1,
+#league-tooltip h2,
+#league-tooltip h3,
+#league-tooltip h4,
+#league-tooltip h5,
+#league-tooltip h6,
+#league-tooltip p,
+#league-tooltip span,
+#league-tooltip small {
+  text-align: left;
+}
+
+#league-tooltip div {
+  box-sizing: border-box;
+}
+
+#league-tooltip p,
+#league-tooltip small,
+#league-tooltip span {
+  line-height: 22px;
+  text-indent: 0px;
+}
+
+#league-tooltip ul,
+#league-tooltip ol {
+  margin: 0;
+  padding: 0;
+}
+
+#league-tooltip .league-tooltip__info {
+  background-color: rgba(25, 25, 25, 0.9);
+  border: 1px solid #8586a2;
+  border-radius: 5px;
+  box-shadow: 1px 1px 6px black;
+  text-shadow: 1px 1px 2px black;
+  padding: 10px;
+  font-size: 1.1em;
+  min-width: 300px;
+  min-height: 100px;
+}
+
+#league-tooltip .league-tooltip__info--champion {
+  width: 450px;
+}
+#league-tooltip .league-tooltip__info--item {
+  width: 550px;
+}
+#league-tooltip .league-tooltip__info--spell {
+  width: 400px;
+}
+
+#league-tooltip .league-tooltip__left-panel {
+  float: left;
+  width: 44%;
+}
+#league-tooltip .league-tooltip__right-panel {
+  width: 54%;
+  float: right;
+}
+
+#league-tooltip .league-tooltip__title-container {
+  margin-bottom: 12px;
+}
+
+#league-tooltip .league-tooltip__image {
+  border: 1px solid #8586a2;
+  border-radius: 2px;
+  float: left;
+  margin-right: 10px;
+}
+
+#league-tooltip .league-tooltip__title {
+  font-size: 1.5em;
+  color: #f5deb3;
+  font-weight: bold;
+}
+
+#league-tooltip .league-tooltip__description {
+  color: #5586b5;
+}
+
+#league-tooltip .league-tooltip__tags {
+  list-style-type: none;
+  font-style: italic;
+}
+
+#league-tooltip .league-tooltip__tag {
+  display: inline;
+  color: #2cc2e9;
+  margin: 0 3px;
+}
+
+#league-tooltip .league-tooltip__title-small {
+  font-weight: bold;
+  color: #ecf10e;
+}
+
+#league-tooltip .league-tooltip__stats {
+  border: 1px solid #8586a2;
+  background-color: rgb(25, 25, 25);
+  vertical-align: middle;
+  width: 100%;
+}
+
+#league-tooltip .league-tooltip__stat {
+}
+
+#league-tooltip .league-tooltip__stat:nth-child(even) {
+  background-color: rgb(40, 40, 40);
+}
+
+#league-tooltip .league-tooltip__stat-column {
+  padding: 0 3px;
+}
+
+#league-tooltip .league-tooltip__stat-base {
+  color: #4cff03;
+}
+
+#league-tooltip .league-tooltip__stat-perlevel {
+  color: #ecf10e;
+}
+
+/* ========= CHAMPIONS ========= */
+
+#league-tooltip .league-tooltip__champion-title {
+  font-weight: bold;
+  color: #ecf10e;
+}
+
+#league-tooltip .league-tooltip__tags--champion {
+  margin-bottom: 12px;
+}
+
+#league-tooltip .league-tooltip__champion-infos {
+  padding: 6px;
+  border: 1px solid #8586a2;
+  background-color: black;
+}
+
+#league-tooltip .league-tooltip__champion-info {
+  height: 20px;
+  background-color: #f5deb3;
+  border: 2px solid #8586a2;
+  margin: 2px 0px;
+}
+
+#league-tooltip .league-tooltip__champion-info--red {
+  background-image: -ms-linear-gradient(top, #612626 0%, #4D0A0A 100%);
+  background-image: -moz-linear-gradient(top, #612626 0%, #4D0A0A 100%);
+  background-image: -o-linear-gradient(top, #612626 0%, #4D0A0A 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #612626), color-stop(100, #4D0A0A));
+  background-image: -webkit-linear-gradient(top, #612626 0%, #4D0A0A 100%);
+  background-image: linear-gradient(to bottom, #612626 0%, #4D0A0A 100%);
+}
+#league-tooltip .league-tooltip__champion-info--green {
+  background-image: -ms-linear-gradient(top, #163916 0%, #002801 100%);
+  background-image: -moz-linear-gradient(top, #163916 0%, #002801 100%);
+  background-image: -o-linear-gradient(top, #163916 0%, #002801 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #163916), color-stop(100, #002801));
+  background-image: -webkit-linear-gradient(top, #163916 0%, #002801 100%);
+  background-image: linear-gradient(to bottom, #163916 0%, #002801 100%);
+}
+#league-tooltip .league-tooltip__champion-info--blue {
+  background-image: -ms-linear-gradient(top, #1b3555 0%, #062347 100%);
+  background-image: -moz-linear-gradient(top, #1b3555 0%, #062347 100%);
+  background-image: -o-linear-gradient(top, #1b3555 0%, #062347 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #1b3555), color-stop(100, #062347));
+  background-image: -webkit-linear-gradient(top, #1b3555 0%, #062347 100%);
+  background-image: linear-gradient(to bottom, #1b3555 0%, #062347 100%);
+}
+#league-tooltip .league-tooltip__champion-info--purple {
+  background-image: -ms-linear-gradient(top, #411a52 0%, #300542 100%);
+  background-image: -moz-linear-gradient(top, #411a52 0%, #300542 100%);
+  background-image: -o-linear-gradient(top, #411a52 0%, #300542 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #411a52), color-stop(100, #300542));
+  background-image: -webkit-linear-gradient(top, #411a52 0%, #300542 100%);
+  background-image: linear-gradient(to bottom, #411a52 0%, #300542 100%);
+}
+
+/* ========= ITEMS ========= */
+
+#league-tooltip .league-tooltip__description--item stats {
+  color: #4cff03;
+}
+
+#league-tooltip .league-tooltip__description--item passive {
+  font-weight: bold;
+}
+
+#league-tooltip .league-tooltip__description--item unique {
+  font-weight: bold;
+}
+
+/* ========= SPELLS ========= */
+
+#league-tooltip .league-tooltip__spell-min-level {
+  float: right;
+  text-align: right;
+  color: #4cff03;
+}
+
+/* ========= RUNES ========= */
+
+#league-tooltip .league-tooltip__image--rune {
+  border: none;
+}
+
+#league-tooltip .league-tooltip__rune-tier {
+  float: right;
+  text-align: right;
+  color: #4cff03;
+}
+
+/* ========= MASTERIES ========= */
+
+#league-tooltip .league-tooltip__mastery-ranks {
+  float: right;
+  text-align: right;
+  color: #4cff03;
+}

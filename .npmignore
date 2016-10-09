@@ -1,0 +1,8 @@
+src/
+test/
+node_modules/
+.babelrc
+.editorconfig
+.eslintrc
+.jscsrc
+gulpfile*
