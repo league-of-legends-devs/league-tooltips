@@ -124,10 +124,8 @@ Every mouse hover will launch a query to the `domain.com/tooltips/api` route (if
 
 ## TODO
 
-### Beta :
-- [ ] Refractor
-
 ### Release :
+- [ ] Refractor
 - [ ] Add the champion spells
 - [ ] Add the mouseover listener to the newly created tooltips in the DOM
 
