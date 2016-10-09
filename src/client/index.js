@@ -132,6 +132,7 @@ import _ from 'lodash';
       } catch (e) {
         console.error(e);
       }
+      jsonData = _.merge(jsonData, { patchVersion: datasCache['patch'] });
     } else {
       jsonData = datasCache[dataType][id].data;
     }
@@ -147,6 +148,13 @@ import _ from 'lodash';
   };
 
   async function initTips () {
+    try {
+      const patchResponse = await fetch(BASE_ROUTE + 'patch');
+      datasCache['patch'] = await patchResponse.json();
+    } catch (e) {
+      console.error(e);
+    }
+
     let tooltipElementDiv = document.createElement('div');
     tooltipElementDiv.id = 'league-tooltip';
     if (tooltipElementDiv.style) {

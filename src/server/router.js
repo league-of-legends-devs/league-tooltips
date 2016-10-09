@@ -34,6 +34,15 @@ function createRouter (apiKey, region, route, opts) {
       handleDataRequest.call({ api: api }, source, ...params);
     });
   }
+  router.get('/patch', async (req, res, next) => {
+    try {
+      const data = await api.getPatchVersion();
+      res.send({ patch: data }); // TODO: HTTP code : 200
+    } catch (err) {
+      res.send(JSON.stringify({ err: err.message })); // TODO: HTTP code : 500
+    }
+    next();
+  });
 
   const fileName = opts.fileName || 'league-tips.min.js';
   const originalClientFile = fs.readFileSync(path.resolve(__dirname, '../client', 'league-tips.min.js'), { encoding: 'utf-8' });

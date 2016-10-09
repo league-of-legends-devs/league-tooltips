@@ -50,6 +50,8 @@ for (const dataType in sources) {
   client.registerMethod(dataType, sources[dataType].link, 'GET');
 }
 
+client.registerMethod('patch', linkAPI('https', 'static-data/${region}/v1.2/versions'), 'GET');
+
 // Promisify the node client methods
 for (const method in client.methods) {
   client.methods[method + 'Async'] = (...args) => new Promise((resolve, reject) => {
@@ -77,6 +79,24 @@ class Api {
 
   getSources () {
     return _.keys(sources);
+  }
+
+  async getPatchVersion () {
+    const clientArgs = {
+      path: { 'region': this.region },
+      parameters: { 'api_key': this.apiKey }
+    };
+    let result;
+    try {
+      result = await client.methods['patchAsync'](clientArgs);
+    } catch (err) {
+      throw new Error(e);
+    }
+    if (!result.response.statusCode.toString().startsWith('2')) {
+      // Not 2xx http code
+      throw new Error(`${result.response.statusCode} : ${result.response.statusMessage}`);
+    }
+    return _(result.data).head();
   }
 
   async getData (dataType, id) {
