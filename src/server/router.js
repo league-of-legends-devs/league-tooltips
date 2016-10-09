@@ -51,6 +51,9 @@ function createRouter (apiKey, region, route, opts) {
     res.setHeader('Content-Type', 'application/javascript');
     res.send(clientFile);
   });
+  router.use('/html/loading.html', (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, '../client/views', `loading.html`));
+  });
   router.get('/html/:type.html', (req, res, next) => {
     res.sendFile(path.resolve(__dirname, '../client/views', `tooltip-${req.params.type}.html`));
   });

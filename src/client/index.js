@@ -38,8 +38,8 @@ import _ from 'lodash';
       this._tooltipElement = document.all[this.id].style;
     }
 
-    const loadGifLink = BASE_ROUTE + '/assets/img/load.gif';
-    this._tooltipElement.innerHTML = `<img src="${loadGifLink}" alt="Loading ..." />`;
+    const loadingGifLink = BASE_ROUTE + 'assets/img/load.gif';
+    this._tooltipElement.innerHTML = _.template(datasCache['loadingHtml'])({ gifLink: loadingGifLink });
 
     this._saveonmouseover = document.onmousemove;
     document.onmousemove = this.mouseMove;
@@ -156,6 +156,14 @@ import _ from 'lodash';
       datasCache['patch'] = await patchResponse.json();
     } catch (e) {
       console.error(e);
+      return;
+    }
+    try {
+      const loadingHtmlResponse = await fetch(BASE_ROUTE + 'html/loading.html');
+      datasCache['loadingHtml'] = await loadingHtmlResponse.text();
+    } catch (e) {
+      console.error(e);
+      return;
     }
 
     let tooltipElementDiv = document.createElement('div');
