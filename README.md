@@ -125,7 +125,6 @@ Every mouse hover will launch a query to the `domain.com/tooltips/api` route (if
 ## TODO
 
 ### Beta :
-- [ ] Loading gif
 - [ ] Refractor
 
 ### Release :
