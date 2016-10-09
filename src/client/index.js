@@ -9,7 +9,7 @@ import _ from 'lodash';
   if (!BASE_ROUTE_FROM_CONFIG) {
     console.warn('[league-tooltips] $BASE_ROUTE is not set');
   }
-  const BASE_ROUTE = (BASE_ROUTE_FROM_CONFIG / '/') || '/tooltips/';
+  const BASE_ROUTE = (BASE_ROUTE_FROM_CONFIG + '/') || '/tooltips/';
 
   // Use http://youmightnotneedjquery.com/#ready ?
   window.onload = () => {
