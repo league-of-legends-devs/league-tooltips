@@ -17,6 +17,8 @@ import _ from 'lodash';
     console.log('league-tips loaded.');
   };
 
+  let datasCache = {};
+
   const tooltip = {
     id: 'league-tooltip',
     offsetx: 10,
@@ -111,19 +113,37 @@ import _ from 'lodash';
       return;
     }
 
-    const tooltipQuery = await fetch(BASE_ROUTE + `html/${dataType}.html`);
-    const tooltipHtml = await tooltipQuery.text();
-    const template = _.template(tooltipHtml);
+    let templateHtml = null;
+    if (!datasCache.hasOwnProperty(dataType) || !datasCache[dataType].hasOwnProperty(id) || !datasCache[dataType][id].template) {
+      const tooltipQuery = await fetch(BASE_ROUTE + `html/${dataType}.html`);
+      const tooltipHtml = await tooltipQuery.text();
+      templateHtml = tooltipHtml;
+    } else {
+      templateHtml = datasCache[dataType][id].template;
+    }
+    const template = _.template(templateHtml);
 
-    const queryUrl = BASE_ROUTE + dataType + '/' + id;
     let jsonData;
-    try {
-      const response = await fetch(queryUrl);
-      jsonData = await response.json();
-    } catch (e) {
-      console.error(e);
+    if (!datasCache.hasOwnProperty(dataType) || !datasCache[dataType].hasOwnProperty(id) || !datasCache[dataType][id].data) {
+      const queryUrl = BASE_ROUTE + dataType + '/' + id;
+      try {
+        const response = await fetch(queryUrl);
+        jsonData = await response.json();
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      jsonData = datasCache[dataType][id].data;
     }
     this._tooltipElement.innerHTML = template(jsonData);
+
+    if (!datasCache[dataType]) {
+      datasCache[dataType] = {};
+    }
+    datasCache[dataType][id] = {
+      data: jsonData,
+      template: templateHtml
+    };
   };
 
   async function initTips () {
