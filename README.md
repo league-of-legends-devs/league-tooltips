@@ -126,7 +126,6 @@ Every mouse hover will launch a query to the `domain.com/tooltips/api` route (if
 
 ### Beta :
 - [ ] Get the latest ddragon images (not with a static patch in the URL)
-- [ ] Cache the templates and the datas
 - [ ] Loading gif
 - [ ] Refractor
 
