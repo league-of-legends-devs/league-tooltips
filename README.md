@@ -1,6 +1,4 @@
-# league-tooltips (IN ALPHA DEV PHASE)
-
-[![stability](https://img.shields.io/badge/stability-experimental-orange.svg?style=flat-square)](https://nodejs.org/api/documentation.html#documentation_stability_index)
+# league-tooltips ([NPM link](https://www.npmjs.com/package/league-tooltips))
 
 Express middleware for League of Legends tooltips : champions, items, summoner spells, runes and masteries.
 
