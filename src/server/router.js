@@ -54,6 +54,7 @@ function createRouter (apiKey, region, route, opts) {
   router.get('/html/:type.html', (req, res, next) => {
     res.sendFile(path.resolve(__dirname, '../client/views', `tooltip-${req.params.type}.html`));
   });
+  router.use('/assets', express.static(path.resolve(__dirname, '../client/assets')));
   router.use('/styles', express.static(path.resolve(__dirname, '../client/styles')));
   return router;
 }

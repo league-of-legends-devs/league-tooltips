@@ -38,6 +38,9 @@ import _ from 'lodash';
       this._tooltipElement = document.all[this.id].style;
     }
 
+    const loadGifLink = BASE_ROUTE + '/assets/img/load.gif';
+    this._tooltipElement.innerHTML = `<img src="${loadGifLink}" alt="Loading ..." />`;
+
     this._saveonmouseover = document.onmousemove;
     document.onmousemove = this.mouseMove;
 

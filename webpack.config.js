@@ -28,7 +28,8 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: './src/client/views', to: 'views' },
-      { from: './src/client/styles', to: 'styles' }
+      { from: './src/client/styles', to: 'styles' },
+      { from: './src/client/assets', to: 'assets' }
     ])
   ]
 };
