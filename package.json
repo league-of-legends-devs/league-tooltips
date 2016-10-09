@@ -40,7 +40,6 @@
     "gulp-plumber": "^1.1.0",
     "lodash": "^4.16.4",
     "node-rest-client": "^2.0.1",
-    "webpack-stream": "^3.2.0",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
@@ -61,6 +60,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^2.0.0",
-    "run-sequence": "^1.2.2"
+    "run-sequence": "^1.2.2",
+    "webpack-stream": "^3.2.0"
   }
 }
