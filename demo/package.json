@@ -1,0 +1,40 @@
+{
+  "name": "league-tooltips-demo",
+  "private": "true",
+  "version": "1.0.0",
+  "description": "League tooltips module demo.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ilshidur/league-tooltips.git"
+  },
+  "keywords": [
+    "league",
+    "of",
+    "legends",
+    "lol",
+    "tool",
+    "tip",
+    "tooltip",
+    "description",
+    "champion",
+    "item",
+    "hover",
+    "over",
+    "demo"
+  ],
+  "author": "Ilshidur <ilshidur@gmail.com> (https://www.nicolas-coutin.fr)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ilshidur/league-tooltips/issues"
+  },
+  "homepage": "https://github.com/Ilshidur/league-tooltips#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "league-tooltips": "1.0.4"
+  }
+}
