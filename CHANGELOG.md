@@ -1,5 +1,12 @@
 # league-tooltips - change log
 
+# 1.0.3 (Oct. 10th 2016)
+
+**Fix :**
+
+* Fix "forbidden protocol" message if undefined and fix protocol not being used properly in the API.
+* Fix undefined url not being set to the default value.
+
 # 1.0.2 (Oct. 10th 2016)
 
 **Removed :**
