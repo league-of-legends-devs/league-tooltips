@@ -22,7 +22,13 @@ fi
 ## Install dependencies
 echo "Installing dependencies ..."
 npm install
+(cd .. && npm install)
 echo "Installed dependencies !"
+
+## Build
+echo "Building ..."
+(cd .. && npm run build)
+echo "Building : done !"
 
 ## Run with pm2
 echo "Running PM2 ..."
