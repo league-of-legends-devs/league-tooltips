@@ -1,5 +1,5 @@
 var express = require('express');
-var leagueTips = require('league-tooltips');
+var leagueTips = require('../');
 var config = require('./config.js');
 
 var app = express();

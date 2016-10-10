@@ -34,7 +34,6 @@
   },
   "homepage": "https://github.com/Ilshidur/league-tooltips#readme",
   "dependencies": {
-    "express": "^4.14.0",
-    "league-tooltips": "1.0.4"
+    "express": "^4.14.0"
   }
 }
