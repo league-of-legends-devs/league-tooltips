@@ -13,61 +13,73 @@ client.on('error', err => {
   console.error('Something went wrong on the client', err);
 });
 
-const sources = {
-  'item': {
-    link: linkAPI('https', 'static-data/${region}/v1.2/item/${id}'),
-    args: {
-      itemData: ['tags', 'image', 'gold'].join(',')
-    }
-  },
-  'champion': {
-    link: linkAPI('https', 'static-data/${region}/v1.2/champion/${id}'),
-    args: {
-      champData: ['tags', 'stats', 'image', 'passive', 'spells', 'info'].join(',')
-    }
-  },
-  'spell': {
-    link: linkAPI('https', 'static-data/${region}/v1.2/summoner-spell/${id}'),
-    args: {
-      spellData: ['image', 'rangeBurn', 'cooldownBurn', 'modes'].join(',')
-    }
-  },
-  'rune': {
-    link: linkAPI('https', 'static-data/${region}/v1.2/rune/${id}'),
-    args: {
-      runeData: ['tags', 'image'].join(',')
-    }
-  },
-  'mastery': {
-    link: linkAPI('https', 'static-data/${region}/v1.2/mastery/${id}'),
-    args: {
-      masteryData: ['ranks', 'image', 'masteryTree'].join(',')
-    }
+function createSources () {
+  if (!this.protocol) {
+    throw new Error('createSources() must be bound to an Api instance.');
   }
-};
-
-for (const dataType in sources) {
-  client.registerMethod(dataType, sources[dataType].link, 'GET');
-}
-
-client.registerMethod('patch', linkAPI('https', 'static-data/${region}/v1.2/versions'), 'GET');
-
-// Promisify the node client methods
-for (const method in client.methods) {
-  client.methods[method + 'Async'] = (...args) => new Promise((resolve, reject) => {
-    try {
-      client.methods[method](...args, (data, response) => {
-        resolve({ data: data, response: response });
-      });
-    } catch (e) {
-      reject(e);
+  return {
+    'item': {
+      link: linkAPI(this.protocol, 'static-data/${region}/v1.2/item/${id}'),
+      args: {
+        itemData: ['tags', 'image', 'gold'].join(',')
+      }
+    },
+    'champion': {
+      link: linkAPI(this.protocol, 'static-data/${region}/v1.2/champion/${id}'),
+      args: {
+        champData: ['tags', 'stats', 'image', 'passive', 'spells', 'info'].join(',')
+      }
+    },
+    'spell': {
+      link: linkAPI(this.protocol, 'static-data/${region}/v1.2/summoner-spell/${id}'),
+      args: {
+        spellData: ['image', 'rangeBurn', 'cooldownBurn', 'modes'].join(',')
+      }
+    },
+    'rune': {
+      link: linkAPI(this.protocol, 'static-data/${region}/v1.2/rune/${id}'),
+      args: {
+        runeData: ['tags', 'image'].join(',')
+      }
+    },
+    'mastery': {
+      link: linkAPI(this.protocol, 'static-data/${region}/v1.2/mastery/${id}'),
+      args: {
+        masteryData: ['ranks', 'image', 'masteryTree'].join(',')
+      }
     }
-  });
+  };
 }
+
+function initClient () {
+  if (!this.sources) {
+    throw new Error('initClient() must be bound to an Api instance.');
+  }
+  const sources = this.sources;
+  for (const dataType in sources) {
+    client.registerMethod(dataType, sources[dataType].link, 'GET');
+  }
+
+  client.registerMethod('patch', linkAPI(this.protocol, 'static-data/${region}/v1.2/versions'), 'GET');
+
+  // Promisify the node client methods
+  for (const method in client.methods) {
+    client.methods[method + 'Async'] = (...args) => new Promise((resolve, reject) => {
+      try {
+        client.methods[method](...args, (data, response) => {
+          resolve({ data: data, response: response });
+        });
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
+}
+
 
 class Api {
   constructor (apiKey, region, { protocol, locale }) {
-    if (protocol !== 'http' && protocol !== 'https') {
+    if (protocol && protocol !== 'http' && protocol !== 'https') {
       throw new Error(`forbidden protocol : ${protocol}`);
     }
 
@@ -75,10 +87,13 @@ class Api {
     this.region = region;
     this.protocol = protocol || 'https';
     this.locale = locale || 'en_US';
+    this.sources = createSources.call(this);
+
+    initClient.call(this);
   }
 
   getSources () {
-    return _.keys(sources);
+    return _.keys(this.sources);
   }
 
   async getPatchVersion () {
