@@ -1,4 +1,5 @@
 src/
+demo/
 test/
 node_modules/
 .babelrc
