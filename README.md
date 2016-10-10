@@ -10,7 +10,9 @@ Express middleware for League of Legends tooltips : champions, items, summoner s
 
 `npm install --save league-tooltips`
 
-## Demo
+## Demo : [here](https://tooltips.lol-item-sets-generator.org/)
+
+## How to use
 
 ### Server :
 ```javascript
