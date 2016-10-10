@@ -1,5 +1,11 @@
 # league-tooltips - change log
 
+# 1.0.4 (Oct. 10th 2016)
+
+**Fix :**
+
+* Fix undefined "sources" variable.
+
 # 1.0.3 (Oct. 10th 2016)
 
 **Fix :**
