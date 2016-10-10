@@ -115,11 +115,11 @@ class Api {
   }
 
   async getData (dataType, id) {
-    if (!sources.hasOwnProperty(dataType))
+    if (!this.sources.hasOwnProperty(dataType))
       throw new Error(`unknown data type : ${dataType}`);
 
     const paramsGET = { 'api_key': this.apiKey, 'locale': this.locale };
-    const routeArgs = sources[dataType].args;
+    const routeArgs = this.sources[dataType].args;
     const clientArgs = {
       path: { 'region': this.region, 'id': id },
       parameters: _.merge(paramsGET, routeArgs)
