@@ -3,7 +3,7 @@ import path from 'path';
 import { createRouter } from './router';
 
 export default function (apiKey, region, opts = {}) {
-  const url = opts.url; // domain.tld/route
+  const url = opts.url || ''; // domain.tld/route
   // TODO: Ensure url is valid
   const route = ('/' + path.parse(url).base) || '/';
   // TODO: Check route
