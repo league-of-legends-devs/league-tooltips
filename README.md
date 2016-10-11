@@ -82,7 +82,7 @@ Allowed values : `br`, `eune`, `euw`, `jp`, `kr`, `lan`, `las`, `na`, `oce`, `pb
 
 #### - `url`
 
-**default value** : `/` (e.g. : `domain.com/static/tooltips`)
+**default value** : `/` (e.g. : `/static/tooltips`)
 
 The route where the static files and the datas will be served.
 
@@ -94,7 +94,7 @@ The name of the Javasript file that will be served to the client.
 
 *e.g.*
 
-`leagueTips('<API_KEY>', '<REGION>', '/tooltips', { fileName: 'league-tips.min.js' })`
+`leagueTips('<API_KEY>', '<REGION>', { url: '/tooltips', fileName: 'league-tips.min.js' })`
 
 will serve the file at `/tootips/league-tips.min.js`.
 
@@ -115,12 +115,12 @@ The express middleware will retrieve the required datas from the Riot API and st
 e.g.
 
 ```javascript
-app.use(leagueTips('RIOT_API_KEY', 'euw', 'league-tooltips.com/tooltips', { fileName: 'league-tips.min.js' }));
+app.use(leagueTips('RIOT_API_KEY', 'euw', { url: '/tooltips', fileName: 'league-tips.min.js' }));
 ```
-will serve the javascript file with the `league-tooltips.com/tooltips/league-tips.min.js` route.
+will serve the javascript file with the `/tooltips/league-tips.min.js` route.
 
 The JS file will now create a LeagueTooltip object that will listen to the `onmouseover` events of all elements that have the `league-tooltip` class.
-Every mouse hover will launch a query to the `domain.com/tooltips/api` route (if not stored in the browser cache) and retrieve the datas to show in the tooltip.
+Every mouse hover will launch a query to the `/tooltips/api` route (if not stored in the browser cache) and retrieve the datas to show in the tooltip.
 
 ## TODO
 

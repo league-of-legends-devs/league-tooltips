@@ -3,10 +3,8 @@ import path from 'path';
 import { createRouter } from './router';
 
 export default function (apiKey, region, opts = {}) {
-  const url = opts.url || ''; // domain.tld/route
-  // TODO: Ensure url is valid
+  const url = opts.url || '';
   const route = ('/' + path.parse(url).base) || '/';
-  // TODO: Check route
 
   const router = express.Router();
   router.use(route, createRouter(apiKey, region, route, opts));

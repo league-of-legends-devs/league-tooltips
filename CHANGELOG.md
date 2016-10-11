@@ -1,5 +1,11 @@
 # league-tooltips - change log
 
+# 1.1.0 (Oct. 11th 2016)
+
+## **Changed :**
+
+* Remove the "domain.tld" part of the `options.url` as the `fetch()` cross-origin policy will deny the request to other domains.
+
 # 1.0.4 (Oct. 10th 2016)
 
 ## **Fixed :**
