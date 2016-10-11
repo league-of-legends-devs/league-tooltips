@@ -5,6 +5,7 @@
 ## **Changed :**
 
 * Remove the "domain.tld" part of the `options.url` as the `fetch()` cross-origin policy will deny the request to other domains.
+* Change 'data-spell' attribute to 'data-summonerspell' for better clarity.
 
 # 1.0.4 (Oct. 10th 2016)
 
