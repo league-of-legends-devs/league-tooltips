@@ -11,6 +11,8 @@ import _ from 'lodash';
   }
   const BASE_ROUTE = (BASE_ROUTE_FROM_CONFIG + '/') || '/tooltips/';
 
+  const ALLOWED_DATAS = ['champion', 'item', 'summonerspell', 'rune', 'mastery'];
+
   // Use http://youmightnotneedjquery.com/#ready ?
   window.onload = () => {
     initTips();
@@ -104,8 +106,7 @@ import _ from 'lodash';
   tooltip.render = async function (dataset) {
     let dataType = null;
     let id = null;
-    const allowedDatas = ['champion', 'item', 'spell', 'rune', 'mastery'];
-    for (let allowedData of allowedDatas) {
+    for (let allowedData of ALLOWED_DATAS) {
       if (dataset[allowedData]) {
         dataType = allowedData;
         id = dataset[allowedData];
@@ -139,6 +140,7 @@ import _ from 'lodash';
     } else {
       jsonData = datasCache[dataType][id].data;
     }
+
     this._tooltipElement.innerHTML = template(jsonData);
 
     if (!datasCache[dataType]) {

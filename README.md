@@ -49,7 +49,7 @@ You must set the `league-tootip` class and one of these attributes :
 
 * `data-champion`
 * `data-item`
-* `data-spell` (summoner spell)
+* `data-summonerspell`
 * `data-rune`
 * `data-mastery`
 

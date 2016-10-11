@@ -16,7 +16,7 @@ Code :
 ![Spell tooltip](previews/summoner.png)
 
 Code :
-`<div class="league-tooltip" data-spell="4"></div>`
+`<div class="league-tooltip" data-summoner-spell="4"></div>`
 
 ## Rune
 ![Rune tooltip](previews/rune.png)

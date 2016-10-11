@@ -30,7 +30,7 @@ function createSources () {
         champData: ['tags', 'stats', 'image', 'passive', 'spells', 'info'].join(',')
       }
     },
-    'spell': {
+    'summonerspell': {
       link: linkAPI(this.protocol, 'static-data/${region}/v1.2/summoner-spell/${id}'),
       args: {
         spellData: ['image', 'rangeBurn', 'cooldownBurn', 'modes'].join(',')
