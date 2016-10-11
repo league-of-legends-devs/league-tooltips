@@ -141,6 +141,11 @@ import _ from 'lodash';
       jsonData = datasCache[dataType][id].data;
     }
 
+    if (jsonData.err) {
+      this._tooltipElement.innerHTML = _.template(datasCache['errorHtml'])({ error: jsonData.err });
+      return;
+    }
+
     this._tooltipElement.innerHTML = template(jsonData);
 
     if (!datasCache[dataType]) {
@@ -163,6 +168,13 @@ import _ from 'lodash';
     try {
       const loadingHtmlResponse = await fetch(BASE_ROUTE + 'html/loading.html');
       datasCache['loadingHtml'] = await loadingHtmlResponse.text();
+    } catch (e) {
+      console.error(e);
+      return;
+    }
+    try {
+      const errorHtmlResponse = await fetch(BASE_ROUTE + 'html/error.html');
+      datasCache['errorHtml'] = await errorHtmlResponse.text();
     } catch (e) {
       console.error(e);
       return;

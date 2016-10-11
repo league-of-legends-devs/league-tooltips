@@ -9,9 +9,9 @@ async function handleDataRequest (dataType, req, res, next) {
   try {
     // 'this' is bound to an Api instance
     const data = await this.api.getData(dataType, req.params.id);
-    res.send(JSON.stringify(data)); // TODO: HTTP code : 200
+    res.send(JSON.stringify(data));
   } catch (err) {
-    res.send(JSON.stringify({ err: err.message })); // TODO: HTTP code : 500
+    res.send(JSON.stringify({ err: err.message }));
   }
   next();
 }
@@ -53,6 +53,9 @@ function createRouter (apiKey, region, route, opts) {
   });
   router.use('/html/loading.html', (req, res, next) => {
     res.sendFile(path.resolve(__dirname, '../client/views', `loading.html`));
+  });
+  router.use('/html/error.html', (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, '../client/views', `error.html`));
   });
   router.get('/html/:type.html', (req, res, next) => {
     res.sendFile(path.resolve(__dirname, '../client/views', `tooltip-${req.params.type}.html`));

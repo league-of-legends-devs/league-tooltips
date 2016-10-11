@@ -2,6 +2,10 @@
 
 # 1.1.0 (Oct. 11th 2016)
 
+**Added :**
+
+* Show the tooltip error if the request is errored.
+
 ## **Changed :**
 
 * Remove the "domain.tld" part of the `options.url` as the `fetch()` cross-origin policy will deny the request to other domains.
