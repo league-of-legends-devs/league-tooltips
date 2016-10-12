@@ -105,7 +105,7 @@ class Api {
     let result;
     try {
       result = await client.methods['patchAsync'](clientArgs);
-    } catch (err) {
+    } catch (e) {
       throw new Error(e);
     }
     if (!result.response.statusCode.toString().startsWith('2')) {
@@ -123,13 +123,14 @@ class Api {
     const routeArgs = this.sources[dataType].args;
     const clientArgs = {
       path: { 'region': this.region, 'id': id },
-      parameters: _.merge(paramsGET, routeArgs)
+      parameters: _.merge(paramsGET, routeArgs),
+      source: this.sources[dataType]
     };
 
     let result;
     try {
       result = await client.methods[dataType + 'Async'](clientArgs);
-    } catch (err) {
+    } catch (e) {
       throw new Error(e);
     }
     if (!result.response.statusCode.toString().startsWith('2')) {
