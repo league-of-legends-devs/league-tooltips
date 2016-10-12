@@ -146,12 +146,17 @@ import _ from 'lodash';
       return;
     }
 
-    this._tooltipElement.innerHTML = template(jsonData);
+    try {
+      this._tooltipElement.innerHTML = template(jsonData);
+    } catch (e) {
+      this._tooltipElement.innerHTML = _.template(datasCache['errorHtml'])({ error: 'Display error' });
+      console.error(e);
+    }
 
     if (!datasCache[dataType]) {
       datasCache[dataType] = {};
     }
-    datasCache[dataType][id] = {
+    datasCache[dataType][dataParam] = {
       data: jsonData,
       template: templateHtml
     };
