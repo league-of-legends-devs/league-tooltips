@@ -51,6 +51,10 @@ function createRouter (apiKey, region, route, opts) {
     res.setHeader('Content-Type', 'application/javascript');
     res.send(clientFile);
   });
+  router.get('/' + fileName + '.map', (req, res, next) => {
+    res.setHeader('Content-Type', 'application/javascript');
+    res.send(fs.readFileSync(path.resolve(__dirname, '../client', 'league-tips.min.js.map'), { encoding: 'utf-8' }));
+  });
   router.use('/html/loading.html', (req, res, next) => {
     res.sendFile(path.resolve(__dirname, '../client/views', `loading.html`));
   });
