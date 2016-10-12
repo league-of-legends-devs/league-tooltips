@@ -1,6 +1,8 @@
 # league-tooltips ([NPM link](https://www.npmjs.com/package/league-tooltips))
 
-Express middleware for League of Legends tooltips : champions, items, summoner spells, runes and masteries.
+Express middleware for League of Legends tooltips : champions, items, summoner spells, runes, masteries and champion spells.
+
+[![npm](https://img.shields.io/npm/dt/league-tooltips.svg)]() [![Known Vulnerabilities](https://snyk.io/test/npm/league-tooltips/badge.svg)](https://snyk.io/test/npm/league-tooltips)
 
 ![Champion tooltip](previews/champion.png)
 
