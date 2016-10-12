@@ -4,12 +4,20 @@
 
 **Added :**
 
-* Show the tooltip error if the request is errored.
+* [Client] Show the tooltip error if the request is errored.
+* [Client & Server] Add champion spell tooltip.
+* [Client] Show "Display error" if the template rendering failed.
+* [Client] Retry patch fetching if the patch is empty or errored.
+* [Server] Serve sitemaps.
 
 ## **Changed :**
 
-* Remove the "domain.tld" part of the `options.url` as the `fetch()` cross-origin policy will deny the request to other domains.
-* Change 'data-spell' attribute to 'data-summonerspell' for better clarity.
+* [Server] Remove the "domain.tld" part of the `options.url` as the `fetch()` cross-origin policy will deny the request to other domains.
+* [Client] Change 'data-spell' attribute to 'data-summonerspell' for better clarity.
+
+## **Fixed :**
+
+* [Server] Fix "undefined e" error when throwing errors.
 
 # 1.0.4 (Oct. 10th 2016)
 
