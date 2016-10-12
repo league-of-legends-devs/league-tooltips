@@ -71,16 +71,6 @@
   min-height: 100px;
 }
 
-#league-tooltip .league-tooltip__info--champion {
-  width: 450px;
-}
-#league-tooltip .league-tooltip__info--item {
-  width: 550px;
-}
-#league-tooltip .league-tooltip__info--spell {
-  width: 400px;
-}
-
 #league-tooltip .league-tooltip__left-panel {
   float: left;
   width: 44%;
@@ -155,6 +145,10 @@
 
 /* ========= CHAMPIONS ========= */
 
+#league-tooltip .league-tooltip__info--champion {
+  width: 450px;
+}
+
 #league-tooltip .league-tooltip__champion-title {
   font-weight: bold;
   color: #ecf10e;
@@ -212,6 +206,10 @@
 
 /* ========= ITEMS ========= */
 
+#league-tooltip .league-tooltip__info--item {
+  width: 550px;
+}
+
 #league-tooltip .league-tooltip__description--item stats {
   color: #4cff03;
 }
@@ -226,7 +224,11 @@
 
 /* ========= SPELLS ========= */
 
-#league-tooltip .league-tooltip__spell-min-level {
+#league-tooltip .league-tooltip__info--summonerspell {
+  width: 400px;
+}
+
+#league-tooltip .league-tooltip__summonerspell-min-level {
   float: right;
   text-align: right;
   color: #4cff03;
