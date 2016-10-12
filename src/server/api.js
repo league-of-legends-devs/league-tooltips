@@ -48,6 +48,26 @@ function createApiSources () {
       args: {
         masteryData: ['ranks', 'image', 'masteryTree'].join(',')
       }
+    },
+    'championspell': {
+      beforeRequest: function () {
+        // 'this' is bound to 'clientArgs'
+        this.beforeId = this.path.id;
+        this.path.id = this.path.id.split('.')[0];
+      },
+      afterRequest: function () {
+        // 'this' is bound to the data retrieved and the 'clientArgs'
+        const spells = ['Q', 'W', 'E', 'R'];
+        const index = _.indexOf(spells, _.last(this.args.beforeId.split('.')));
+        if (index === -1) {
+          throw new Error('Invalid spell key');
+        }
+        this.data = this.data.spells[index];
+      },
+      link: linkAPI(this.protocol, 'static-data/${region}/v1.2/champion/${id}'),
+      args: {
+        champData: ['tags', 'stats', 'image', 'passive', 'spells', 'info'].join(',')
+      }
     }
   };
 }
@@ -63,20 +83,36 @@ function initClient () {
 
   client.registerMethod('patch', linkAPI(this.protocol, 'static-data/${region}/v1.2/versions'), 'GET');
 
-  // Promisify the node client methods
+  // Promisify the node client methods and add the hooks
   for (const method in client.methods) {
+    const oldMethod = client.methods[method];
     client.methods[method + 'Async'] = (...args) => new Promise((resolve, reject) => {
-      try {
-        client.methods[method](...args, (data, response) => {
-          resolve({ data: data, response: response });
-        });
-      } catch (e) {
-        reject(e);
+      // API source
+      const source = args[0].source;
+      if (source && source.beforeRequest) {
+        try {
+          // Only pass the client args
+          source.beforeRequest.call(args[0]);
+        } catch (e) {
+          reject(e);
+        }
       }
+
+      oldMethod(...args, (data, response) => {
+        let hookData = { args: args[0], data: data };
+        if (source && source.afterRequest) {
+          try {
+            source.afterRequest.call(hookData);
+          } catch (e) {
+            reject(e);
+          }
+        }
+
+        resolve({ data: hookData.data, response: response });
+      });
     });
   }
 }
-
 
 class Api {
   constructor (apiKey, region, { protocol, locale }) {

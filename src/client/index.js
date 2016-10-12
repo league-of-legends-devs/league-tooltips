@@ -11,7 +11,7 @@ import _ from 'lodash';
   }
   const BASE_ROUTE = (BASE_ROUTE_FROM_CONFIG + '/') || '/tooltips/';
 
-  const ALLOWED_DATAS = ['champion', 'item', 'summonerspell', 'rune', 'mastery'];
+  const ALLOWED_DATAS = ['champion', 'item', 'summonerspell', 'rune', 'mastery', 'championspell'];
 
   // Use http://youmightnotneedjquery.com/#ready ?
   window.onload = () => {

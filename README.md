@@ -69,6 +69,11 @@ You must set the `league-tootip` class and one of these `data-*` attributes :
 
  e.g. : `data-mastery="6111"` (Fury)
 
+* `data-championspell` : `id.key` (`.` is a separator)
+
+ e.g. : `data-championspell="103.Q"`
+
+
 The value must be the ID (from the [Riot API](https://developer.riotgames.com/)) of the element you want to show. If an element has more than one tag in this list, the list order will define the priority and the first occurrence will be used.
 
 ## API
@@ -142,7 +147,6 @@ Every mouse hover will launch a query to the `/tooltips/api` route (if not store
 
 ### Release :
 - [ ] Refractor
-- [ ] Add the champion spells
 - [ ] Use the `debug` npm module
 - [ ] Move the tooltip bottom left corner to the mouse cursor when the mouse is near the viewport bottom (instead of top left corner)
 - [ ] Cache the retrieved Riot datas on server side

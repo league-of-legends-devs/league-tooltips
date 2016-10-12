@@ -1,0 +1,43 @@
+<div class="league-tooltip__info league-tooltip__info--championspell">
+  <div class="league-tooltip__title-container">
+    <div class="league-tooltip__image" style="background-image: url(//ddragon.leagueoflegends.com/cdn/<%= patchVersion.patch %>/img/sprite/<%= data.image.sprite %>); background-position: -<%= data.image.x %>px -<%= data.image.y %>px; width: <%= data.image.w %>px; height: <%= data.image.h %>px;"></div>
+    <h1 class="league-tooltip__title">[<%= _.last(id.split('.')) %>] <%= data.name %></h1>
+    <p><span class="league-tooltip__champion-title"><%= _.template(data.resource, { interpolate: /{{([\s\S]+?)}}/g })({ cost: data.costBurn }) %></span> (<%= data.rangeBurn %> range)</p>
+  </div>
+  <div class="clearfix"></div>
+  <p class="league-tooltip__description">
+    <%
+      function replaceVarType (varType) {
+        switch (varType) {
+          case 'attackdamage':
+            return 'AD';
+          case 'spelldamage':
+            return 'AP';
+          case 'bonushealth':
+            return 'bonus health';
+          default:
+            return varType;
+        }
+      }
+      var descriptionDatas = _.merge(
+        _.reduce(data.effectBurn, function (object, value, key) { if (value) { object['e' + key] = value; } return object; }, {}),
+        _.reduce(_.times(10, function (i) { return 'f' + (i + 1); }), function (object, f) { object[f] = '(missing data : ' + f + ')'; return object; }, {}),
+        _.reduce(data.vars, function (object, vars) { object[vars.key] = vars.coeff.map(function (c) { return c*100; }).join('/') + '% ' + vars.link; return object; }, {})
+      );
+      var formattedDatas = _.reduce(descriptionDatas, function (object, value, key) {
+        if ((key.startsWith('a') || key.startsWith('f')) && key.length <= 3) {
+          var valueRaw = _.head(value.split(' '));
+          var varType = _.last(value.split(' '));
+          object[key] = '<span class="league-tooltip__championspell-description-values league-tooltip__championspell-description-values--' + varType + '">' + valueRaw + ' ' + replaceVarType(varType) + '</span>';
+        } else {
+          object[key] = '<span class="league-tooltip__championspell-description-values">' + value + '</span>';
+        }
+        return object;
+      }, {});
+      var template = _.template(data.tooltip, { interpolate: /{{([\s\S]+?)}}/g })(formattedDatas);
+      print(template);
+    %>
+  </p>
+  <p class="league-tooltip__championspell-ranks"><%= data.maxrank %> ranks</p>
+  <p class="league-tooltip__championspell-cooldown"><%= data.cooldownBurn %> seconds cooldown</p>
+</div>

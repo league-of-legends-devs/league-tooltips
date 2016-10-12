@@ -222,7 +222,7 @@
   font-weight: bold;
 }
 
-/* ========= SPELLS ========= */
+/* ========= SUMMONER SPELLS ========= */
 
 #league-tooltip .league-tooltip__info--summonerspell {
   width: 400px;
@@ -251,5 +251,34 @@
 #league-tooltip .league-tooltip__mastery-ranks {
   float: right;
   text-align: right;
+  color: #4cff03;
+}
+
+/* ========= CHAMPION SPELLS ========= */
+
+#league-tooltip .league-tooltip__info--championspell {
+  width: 450px;
+}
+
+#league-tooltip .league-tooltip__championspell-description-values {
+  color: #47e3ff;
+}
+
+#league-tooltip .league-tooltip__championspell-description-values--attackdamage {
+  color: #e34944;
+}
+#league-tooltip .league-tooltip__championspell-description-values--spelldamage {
+  color: #676dff;
+}
+#league-tooltip .league-tooltip__championspell-description-values--bonushealth {
+  color: #e6aeac;
+}
+
+#league-tooltip .league-tooltip__championspell-ranks {
+  color: #4cff03;
+  float: right;
+}
+
+#league-tooltip .league-tooltip__championspell-cooldown {
   color: #4cff03;
 }
