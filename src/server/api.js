@@ -17,6 +17,7 @@ function createSources () {
   if (!this.protocol) {
     throw new Error('createSources() must be bound to an Api instance.');
   }
+  // TODO: Cache the datas in a key-value set with 'link' as the key and the datas as the value
   return {
     'item': {
       link: linkAPI(this.protocol, 'static-data/${region}/v1.2/item/${id}'),
@@ -135,8 +136,6 @@ class Api {
       // Not 2xx http code
       throw new Error(`${result.response.statusCode} : ${result.response.statusMessage}`);
     }
-
-    // TODO: Save the datas in a cache
 
     return {
       dataType: dataType,
