@@ -45,13 +45,27 @@ app.listen(3000);
 </html>
 ```
 
-You must set the `league-tootip` class and one of these attributes :
+You must set the `league-tootip` class and one of these `data-*` attributes :
 
-* `data-champion`
-* `data-item`
-* `data-summonerspell`
-* `data-rune`
-* `data-mastery`
+* `data-champion` : `<champion id>`
+
+ e.g. : `data-champion="103"` (Ahri)
+
+* `data-item` : `<item id>`
+
+ e.g. : `data-item="3027"` (Rod of Ages)
+
+* `data-summonerspell` : `<summonerspell id>`
+
+ e.g. : `data-summonerspell="4"` (Flash)
+
+* `data-rune` : `<rune id>`
+
+ e.g. : `data-rune="5311"` (Greater Seal of Critical Chance)
+
+* `data-mastery` : `<mastery id>`
+
+ e.g. : `data-mastery="6111"` (Fury)
 
 The value must be the ID (from the [Riot API](https://developer.riotgames.com/)) of the element you want to show. If an element has more than one tag in this list, the list order will define the priority and the first occurrence will be used.
 
