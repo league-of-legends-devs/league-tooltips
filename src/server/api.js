@@ -13,9 +13,9 @@ client.on('error', err => {
   console.error('Something went wrong on the client', err);
 });
 
-function createSources () {
+function createApiSources () {
   if (!this.protocol) {
-    throw new Error('createSources() must be bound to an Api instance.');
+    throw new Error('createApiSources() must be bound to an Api instance.');
   }
   // TODO: Cache the datas in a key-value set with 'link' as the key and the datas as the value
   return {
@@ -88,7 +88,7 @@ class Api {
     this.region = region;
     this.protocol = protocol || 'https';
     this.locale = locale || 'en_US';
-    this.sources = createSources.call(this);
+    this.sources = createApiSources.call(this);
 
     initClient.call(this);
   }
