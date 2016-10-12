@@ -105,11 +105,11 @@ import _ from 'lodash';
 
   tooltip.render = async function (dataset) {
     let dataType = null;
-    let id = null;
+    let dataParam = null;
     for (let allowedData of ALLOWED_DATAS) {
       if (dataset[allowedData]) {
         dataType = allowedData;
-        id = dataset[allowedData];
+        dataParam = dataset[allowedData];
       }
     }
 
@@ -118,18 +118,18 @@ import _ from 'lodash';
     }
 
     let templateHtml = null;
-    if (!datasCache.hasOwnProperty(dataType) || !datasCache[dataType].hasOwnProperty(id) || !datasCache[dataType][id].template) {
+    if (!datasCache.hasOwnProperty(dataType) || !datasCache[dataType].hasOwnProperty(dataParam) || !datasCache[dataType][dataParam].template) {
       const tooltipQuery = await fetch(BASE_ROUTE + `html/${dataType}.html`);
       const tooltipHtml = await tooltipQuery.text();
       templateHtml = tooltipHtml;
     } else {
-      templateHtml = datasCache[dataType][id].template;
+      templateHtml = datasCache[dataType][dataParam].template;
     }
     const template = _.template(templateHtml);
 
     let jsonData;
-    if (!datasCache.hasOwnProperty(dataType) || !datasCache[dataType].hasOwnProperty(id) || !datasCache[dataType][id].data) {
-      const queryUrl = BASE_ROUTE + dataType + '/' + id;
+    if (!datasCache.hasOwnProperty(dataType) || !datasCache[dataType].hasOwnProperty(dataParam) || !datasCache[dataType][dataParam].data) {
+      const queryUrl = BASE_ROUTE + dataType + '/' + dataParam;
       try {
         const response = await fetch(queryUrl);
         jsonData = await response.json();
@@ -138,7 +138,7 @@ import _ from 'lodash';
       }
       jsonData = _.merge(jsonData, { patchVersion: datasCache['patch'] });
     } else {
-      jsonData = datasCache[dataType][id].data;
+      jsonData = datasCache[dataType][dataParam].data;
     }
 
     if (jsonData.err) {
