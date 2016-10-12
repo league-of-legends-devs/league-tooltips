@@ -37,9 +37,9 @@ function createRouter (apiKey, region, route, opts) {
   router.get('/patch', async (req, res, next) => {
     try {
       const data = await api.getPatchVersion();
-      res.send({ patch: data }); // TODO: HTTP code : 200
+      res.send({ patch: data });
     } catch (err) {
-      res.send(JSON.stringify({ err: err.message })); // TODO: HTTP code : 500
+      res.send(JSON.stringify({ err: err.message }));
     }
     next();
   });
