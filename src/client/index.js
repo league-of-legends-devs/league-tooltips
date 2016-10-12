@@ -117,6 +117,21 @@ import _ from 'lodash';
       return;
     }
 
+    // If the patch is empty or errored, retry
+    if (!datasCache['patch'] || datasCache['patch'].err) {
+      loadPatchVersion();
+    }
+    if (!datasCache['patch']) {
+      this._tooltipElement.innerHTML = _.template(datasCache['errorHtml'])({ error: 'Error : no patch version available.' });
+      return;
+    }
+    if (datasCache['patch'].err) {
+      const patchErr = datasCache['patch'].err;
+      this._tooltipElement.innerHTML = _.template(datasCache['errorHtml'])({ error: patchErr });
+      return;
+    }
+
+
     let templateHtml = null;
     if (!datasCache.hasOwnProperty(dataType) || !datasCache[dataType].hasOwnProperty(dataParam) || !datasCache[dataType][dataParam].template) {
       const tooltipQuery = await fetch(BASE_ROUTE + `html/${dataType}.html`);
@@ -162,14 +177,22 @@ import _ from 'lodash';
     };
   };
 
-  async function initTips () {
+  async function loadPatchVersion () {
     try {
       const patchResponse = await fetch(BASE_ROUTE + 'patch');
       datasCache['patch'] = await patchResponse.json();
+      const err = datasCache['patch'].err;
+      if (!patchResponse.status.toString().startsWith('2') || err) {
+        console.error(`Error when retrieving the patch. Code ${patchResponse.status} : ${patchResponse.statusText}, message : "${err}".`);
+      }
     } catch (e) {
       console.error(e);
       return;
     }
+  }
+
+  async function initTips () {
+    loadPatchVersion();
     try {
       const loadingHtmlResponse = await fetch(BASE_ROUTE + 'html/loading.html');
       datasCache['loadingHtml'] = await loadingHtmlResponse.text();
