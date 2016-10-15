@@ -1,5 +1,11 @@
 # league-tooltips - change log
 
+# 1.2.0 (Oct. 15th 2016)
+
+**Added :**
+
+* [debug module](https://www.npmjs.com/package/debug) added (see [here](https://github.com/Ilshidur/league-tooltips#debug))
+
 # 1.1.1 (Oct. 15th 2016)
 
 **Fixed :**

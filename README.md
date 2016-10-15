@@ -129,6 +129,17 @@ The HTTP protocol to use when querying the Riot API.
 
 Allowed values : `http` and `https`.
 
+## Debug
+
+This module uses the [debug module](https://www.npmjs.com/package/debug).
+In order to show the debug logs, you must enabled the debugging logs.
+
+* **Server :** you must set the `league-tooltips:*` value in the `DEBUG` environment variable :
+ * Linux : `export DEBUG=league-tooltips:*`
+ * Windows : `set DEBUG=league-tooltips:*`
+* **Browser :** type the following in the console : `leagueTooltipsDebug.enable('*')`
+
+
 ## How does it work ?
 
 The express middleware will retrieve the required datas from the Riot API and store them. It will also serve a javascript file that must be executed by the client.

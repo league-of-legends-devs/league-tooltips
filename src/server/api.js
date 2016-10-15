@@ -1,11 +1,16 @@
 import path from 'path';
+import Debug from 'debug';
 import _ from 'lodash';
 import { Client } from 'node-rest-client';
 
 const RIOT_API = 'global.api.pvp.net/api/lol/';
 
+const debug = Debug('league-tooltips:api');
+
 function linkAPI (protocol, route) {
-  return protocol + '://' + path.join(RIOT_API, route);
+  const url = protocol + '://' + path.join(RIOT_API, route);
+  debug('Linking API', url);
+  return url;
 };
 
 const client = new Client();
@@ -54,15 +59,20 @@ function createApiSources () {
         // 'this' is bound to 'clientArgs'
         this.beforeId = this.path.id;
         this.path.id = this.path.id.split('.')[0];
+        debug('championspell.beforeRequest().beforeId', this.beforeId);
+        debug('championspell.beforeRequest().path.id', this.path.id);
       },
       afterRequest: function () {
         // 'this' is bound to the data retrieved and the 'clientArgs'
         const spells = ['Q', 'W', 'E', 'R'];
-        const index = _.indexOf(spells, _.last(this.args.beforeId.split('.')));
+        const key = _.last(this.args.beforeId.split('.'));
+        const index = _.indexOf(spells, key);
         if (index === -1) {
           throw new Error('Invalid spell key');
         }
         this.data = this.data.spells[index];
+        debug('championspell.afterRequest().index', index);
+        debug('championspell.afterRequest().key', key);
       },
       link: linkAPI(this.protocol, 'static-data/${region}/v1.2/champion/${id}'),
       args: {
@@ -73,17 +83,22 @@ function createApiSources () {
 }
 
 function initClient () {
+  debug('Initializing client');
   if (!this.sources) {
     throw new Error('initClient() must be bound to an Api instance.');
   }
   const sources = this.sources;
   for (const dataType in sources) {
     client.registerMethod(dataType, sources[dataType].link, 'GET');
+    debug('Registered client method', dataType, sources[dataType].link);
   }
 
-  client.registerMethod('patch', linkAPI(this.protocol, 'static-data/${region}/v1.2/versions'), 'GET');
+  const patchSourceUrl = linkAPI(this.protocol, 'static-data/${region}/v1.2/versions');
+  client.registerMethod('patch', patchSourceUrl, 'GET');
+  debug('Registered client method', 'patch', patchSourceUrl);
 
   // Promisify the node client methods and add the hooks
+  debug('Promisifying the client');
   for (const method in client.methods) {
     const oldMethod = client.methods[method];
     client.methods[method + 'Async'] = (...args) => new Promise((resolve, reject) => {
@@ -112,6 +127,8 @@ function initClient () {
       });
     });
   }
+  debug('Promisifyed the client');
+  debug('Initialized client');
 }
 
 class Api {
@@ -120,6 +137,8 @@ class Api {
       throw new Error(`forbidden protocol : ${protocol}`);
     }
 
+    debug('Initializing API');
+
     this.apiKey = apiKey;
     this.region = region;
     this.protocol = protocol || 'https';
@@ -127,13 +146,17 @@ class Api {
     this.sources = createApiSources.call(this);
 
     initClient.call(this);
+
+    debug('Initialized API');
   }
 
   getSources () {
+    debug('Api.getSources() call');
     return _.keys(this.sources);
   }
 
   async getPatchVersion () {
+    debug('Api.getPatchVersion() call');
     const clientArgs = {
       path: { 'region': this.region },
       parameters: { 'api_key': this.apiKey }
@@ -144,14 +167,18 @@ class Api {
     } catch (e) {
       throw new Error(e);
     }
+    debug('Patch response', result.response.statusCode, result.response.statusMessage);
     if (!result.response.statusCode.toString().startsWith('2')) {
       // Not 2xx http code
       throw new Error(`${result.response.statusCode} : ${result.response.statusMessage}`);
     }
-    return _(result.data).head();
+    const patchVersion = _(result.data).head();
+    debug('Patch version', patchVersion);
+    return patchVersion;
   }
 
   async getData (dataType, id) {
+    debug('Api.getData() call', dataType, id);
     if (!this.sources.hasOwnProperty(dataType))
       throw new Error(`unknown data type : ${dataType}`);
 
@@ -169,6 +196,7 @@ class Api {
     } catch (e) {
       throw new Error(e);
     }
+    debug('Data response', result.response.statusCode, result.response.statusMessage);
     if (!result.response.statusCode.toString().startsWith('2')) {
       // Not 2xx http code
       throw new Error(`${result.response.statusCode} : ${result.response.statusMessage}`);
