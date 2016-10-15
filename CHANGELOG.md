@@ -1,5 +1,11 @@
 # league-tooltips - change log
 
+# 1.1.1 (Oct. 15th 2016)
+
+**Fixed :**
+
+* [Server] Fix "Resource interpreted as Stylesheet but transferred with MIME type" warning message on stylesheets.
+
 # 1.1.0 (Oct. 11th 2016)
 
 **Added :**
