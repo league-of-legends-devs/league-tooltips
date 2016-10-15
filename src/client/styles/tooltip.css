@@ -18,6 +18,7 @@
   color: white;
   position: absolute;
   max-width: 40%;
+  z-index: 100;
 }
 
 #league-tooltip h1,

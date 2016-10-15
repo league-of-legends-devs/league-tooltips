@@ -1,5 +1,11 @@
 # league-tooltips - change log
 
+# 1.2.1 (Oct. 15th 2016)
+
+**Added :**
+
+* [Client] Tooltip's `z-index` property set to 100
+
 # 1.2.0 (Oct. 15th 2016)
 
 **Added :**
