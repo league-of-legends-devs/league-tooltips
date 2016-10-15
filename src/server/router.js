@@ -27,6 +27,10 @@ function createRouter (apiKey, region, route, opts) {
   }
 
   const router = express.Router();
+
+  router.use('/assets', express.static(path.resolve(__dirname, '../client/assets')));
+  router.use('/styles', express.static(path.resolve(__dirname, '../client/styles')));
+
   const api = new Api(params.apiKey, params.region, { protocol: opts.protocol, locale: opts.locale });
   const sources = api.getSources();
   for (let source of sources) {
@@ -64,8 +68,6 @@ function createRouter (apiKey, region, route, opts) {
   router.get('/html/:type.html', (req, res, next) => {
     res.sendFile(path.resolve(__dirname, '../client/views', `tooltip-${req.params.type}.html`));
   });
-  router.use('/assets', express.static(path.resolve(__dirname, '../client/assets')));
-  router.use('/styles', express.static(path.resolve(__dirname, '../client/styles')));
   return router;
 }
 
