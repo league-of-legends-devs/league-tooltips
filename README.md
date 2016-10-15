@@ -101,13 +101,13 @@ Allowed values : `br`, `eune`, `euw`, `jp`, `kr`, `lan`, `las`, `na`, `oce`, `pb
 
 **optional** (default value : `{}`)
 
-#### - `url`
+#### - `url` (String)
 
 **default value** : `/` (e.g. : `/static/tooltips`)
 
 The route where the static files and the datas will be served.
 
-#### - `fileName`
+#### - `fileName` (String)
 
 **default value** : `league-tips.min.js`
 
@@ -119,11 +119,11 @@ The name of the Javasript file that will be served to the client.
 
 will serve the file at `/tootips/league-tips.min.js`.
 
-#### - `locale`
+#### - `locale` (String)
 
 The language of the retrieved datas (e.g., `en_US`, `es_ES`, `fr_FR` ...).
 
-#### - `protocol`
+#### - `protocol` (String)
 
 The HTTP protocol to use when querying the Riot API.
 
