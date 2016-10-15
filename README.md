@@ -129,6 +129,12 @@ The HTTP protocol to use when querying the Riot API.
 
 Allowed values : `http` and `https`.
 
+#### - `cors` (Object)
+
+* `origin` (String), defaults to `'*'` if `cors` is defined
+* `methods` (String), defaults to `'GET,PUT,POST,DELETE'` if `cors` is defined
+* `headers` (String), defaults to `'Content-Type'` if `cors` is defined
+
 ## Debug
 
 This module uses the [debug module](https://www.npmjs.com/package/debug).

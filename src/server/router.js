@@ -22,6 +22,17 @@ async function handleDataRequest (dataType, req, res, next) {
   next();
 }
 
+function allowCrossDomain (cors = {}) {
+  debug('allowCrossDomain() call', cors.origin, cors.methods, cors.headers);
+  return function (req, res, next) {
+    debug('CORS header set');
+    res.header('Access-Control-Allow-Origin', cors.origin || '*');
+    res.header('Access-Control-Allow-Methods', cors.methods || 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', cors.headers || 'Content-Type');
+    next();
+  };
+};
+
 function createRouter (apiKey, region, route, opts) {
   debug('createRouter() call', region, route);
   // Format the params in an object for future routes
@@ -36,6 +47,12 @@ function createRouter (apiKey, region, route, opts) {
   debug('Initializing main router');
   const router = express.Router();
 
+  if (opts.cors) {
+    debug('Allowing CORS');
+    router.use(allowCrossDomain(opts.cors));
+  }
+
+  debug('Serving static files');
   router.use('/assets', express.static(path.resolve(__dirname, '../client/assets')));
   router.use('/styles', express.static(path.resolve(__dirname, '../client/styles')));
   debug('Served static files');
