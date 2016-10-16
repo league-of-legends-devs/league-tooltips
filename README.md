@@ -157,14 +157,13 @@ app.use(leagueTips('RIOT_API_KEY', 'euw', { url: '/tooltips', fileName: 'league-
 ```
 will serve the javascript file with the `/tooltips/league-tips.min.js` route.
 
-The JS file will now create a LeagueTooltip object that will listen to the `onmouseover` events of all elements that have the `league-tooltip` class.
-Every mouse hover will launch a query to the `/tooltips/api` route (if not stored in the browser cache) and retrieve the datas to show in the tooltip.
+The JS file will listen to the `onmouseover` events of all elements that have the `league-tooltip` class and show a tooltip when it triggers.
+Every mouse hover will launch a query to the `/tooltips/` api route (if not stored in the browser cache) and retrieve the datas to show in the tooltip.
 
 ## TODO
 
 ### Release :
 - [ ] Refractor
-- [ ] Use the `debug` npm module
 - [ ] Move the tooltip bottom left corner to the mouse cursor when the mouse is near the viewport bottom (instead of top left corner)
 - [ ] Cache the retrieved Riot datas on server side
 - [ ] Champion passives
