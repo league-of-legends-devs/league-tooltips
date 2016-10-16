@@ -6,7 +6,7 @@ This is the source code of the [league-tooltips demo](https://tooltips.lol-item-
 
 ```shell
 git clone https://github.com/Ilshidur/league-tooltips.git league-tooltips
-cd $_
+cd $_/demo
 ```
 
 Copy the `ecosystem.sample.json5` file into `ecosystem.json5` and fill in the environment variables.
