@@ -138,7 +138,7 @@ Allowed values : `http` and `https`.
 ## Debug
 
 This module uses the [debug module](https://www.npmjs.com/package/debug).
-In order to show the debug logs, you must enabled the debugging logs.
+In order to show the debug logs, you must enable the debugging logs.
 
 * **Server :** you must set the `league-tooltips:*` value in the `DEBUG` environment variable :
  * Linux : `export DEBUG=league-tooltips:*`
