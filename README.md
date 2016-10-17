@@ -8,6 +8,18 @@ Express middleware for League of Legends tooltips : champions, items, summoner s
 
 [more screenshots here](PREVIEWS.md)
 
+## Compatibility
+
+### Server
+
+Tested using Node 6.2.1.
+
+### Client
+
+Working on :
+
+* Internet Explorer 11
+
 ## Installation
 
 `npm install --save league-tooltips`
@@ -163,6 +175,7 @@ Every mouse hover will launch a query to the `/tooltips/` api route (if not stor
 ## TODO
 
 ### Release :
+- [ ] IE9 compatibility
 - [ ] Move the tooltip bottom left corner to the mouse cursor when the mouse is near the viewport bottom (instead of top left corner)
 - [ ] Cache the retrieved Riot datas on server side
 - [ ] Champion passives
@@ -172,7 +185,7 @@ Every mouse hover will launch a query to the `/tooltips/` api route (if not stor
 
 ### Ideas :
 - [ ] Serve the templates in `league-tooltips.min.js` as lodash template in order to prevent direct templates requests to the server
-- [ ] Use CSS modulees
+- [ ] Use CSS modules
 - [ ] Champion.GG integration ?
 - [ ] Maybe serve the rendered tooltip.html file with express ? => { renderServerSide : true } ?
 - [ ] Custom tooltip.html in middleware config
