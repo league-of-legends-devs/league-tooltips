@@ -172,11 +172,12 @@ Every mouse hover will launch a query to the `/tooltips/` api route (if not stor
 
 ### Ideas :
 - [ ] Serve the templates in `league-tooltips.min.js` as lodash template in order to prevent direct templates requests to the server
-- [ ] Use Webpack and CSS modulees
+- [ ] Use CSS modulees
 - [ ] Champion.GG integration ?
 - [ ] Maybe serve the rendered tooltip.html file with express ? => { renderServerSide : true } ?
 - [ ] Custom tooltip.html in middleware config
 - [ ] Start the queries before the mouseover event triggers and cache the results
+- [ ] Export the client files in a `league-tooltips-client` momdule with the Universal Module Definition
 
 ## License
 
