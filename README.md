@@ -176,7 +176,6 @@ Every mouse hover will launch a query to the `/tooltips/` api route (if not stor
 
 ### Release :
 - [ ] IE9 compatibility
-- [ ] Move the tooltip bottom left corner to the mouse cursor when the mouse is near the viewport bottom (instead of top left corner)
 - [ ] Cache the retrieved Riot datas on server side
 - [ ] Champion passives
 - [ ] Allow to choose between setting the data id or the data key in `data-*`
