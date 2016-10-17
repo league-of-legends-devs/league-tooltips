@@ -95,7 +95,17 @@ import LeagueTooltipsDebug from 'debug';
       tooltip._x = 0;
       tooltip._y = 0;
     }
-    tooltip.moveTo(tooltip._x + tooltip.offsetx, tooltip._y + tooltip.offsety);
+
+    if (tooltip._x + tooltip._tooltipElement.clientWidth < window.innerWidth && tooltip._y + tooltip._tooltipElement.clientHeight < window.innerHeight) {
+      tooltip.moveTo(tooltip._x + tooltip.offsetx, tooltip._y + tooltip.offsety);
+    } else if (tooltip._x + tooltip._tooltipElement.clientWidth >= window.innerWidth && tooltip._y + tooltip._tooltipElement.clientHeight < window.innerHeight) {
+      tooltip.moveTo(tooltip._x - tooltip._tooltipElement.clientWidth - tooltip.offsetx, tooltip._y + tooltip.offsety);
+    } else if (tooltip._x + tooltip._tooltipElement.clientWidth < window.innerWidth && tooltip._y + tooltip._tooltipElement.clientHeight >= window.innerHeight) {
+      tooltip.moveTo(tooltip._x + tooltip.offsetx, tooltip._y - tooltip._tooltipElement.clientHeight - tooltip.offsety);
+    } else {
+      tooltip.moveTo(tooltip._x - tooltip._tooltipElement.clientWidth - tooltip.offsetx, tooltip._y - tooltip._tooltipElement.clientHeight - tooltip.offsety);
+    }
+
   };
 
   tooltip.moveTo = function (xL, yL) {
