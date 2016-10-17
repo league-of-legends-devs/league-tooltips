@@ -143,9 +143,13 @@ import LeagueTooltipsDebug from 'debug';
     let templateHtml = null;
     if (!datasCache.hasOwnProperty(dataType) || !datasCache[dataType].hasOwnProperty(dataParam) || !datasCache[dataType][dataParam].template) {
       debug(`Requesting ${dataType} template`);
-      const tooltipQuery = await fetch(BASE_ROUTE + `html/${dataType}.html`);
-      const tooltipHtml = await tooltipQuery.text();
-      templateHtml = tooltipHtml;
+      try {
+        const tooltipQuery = await fetch(BASE_ROUTE + `html/${dataType}.html`);
+        const tooltipHtml = await tooltipQuery.text();
+        templateHtml = tooltipHtml;
+      } catch (e) {
+        console.error(e);
+      }
       debug(`Requested ${dataType} template`);
     } else {
       debug(`Loading ${dataType} template from cache`);
