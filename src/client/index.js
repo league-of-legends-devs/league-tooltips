@@ -148,14 +148,20 @@ import LeagueTooltipsDebug from 'debug';
         const tooltipHtml = await tooltipQuery.text();
         templateHtml = tooltipHtml;
       } catch (e) {
-        console.error(e);
+        debug(`Fail to request ${dataType} template : displaying error`);
+        this._tooltipElement.innerHTML = _.template(datasCache['errorHtml'])({ error: `Can't request ${dataType}.html` });
       }
       debug(`Requested ${dataType} template`);
     } else {
       debug(`Loading ${dataType} template from cache`);
       templateHtml = datasCache[dataType][dataParam].template;
     }
-    const template = _.template(templateHtml);
+
+    if (!templateHtml) {
+      return;
+    }
+
+    const tooltipTemplate = _.template(templateHtml);
 
     let jsonData;
     if (!datasCache.hasOwnProperty(dataType) || !datasCache[dataType].hasOwnProperty(dataParam) || !datasCache[dataType][dataParam].data) {
@@ -165,13 +171,20 @@ import LeagueTooltipsDebug from 'debug';
         const response = await fetch(queryUrl);
         jsonData = await response.json();
       } catch (e) {
-        console.error(e);
+        debug(`Fail to request ${dataType}/${dataParam} datas : displaying error`);
+        this._tooltipElement.innerHTML = _.template(datasCache['errorHtml'])({ error: `Can't request ${dataType}/${dataParam}` });
       }
-      jsonData = _.merge(jsonData, { patchVersion: datasCache['patch'] });
+      if (jsonData) {
+        jsonData = _.merge(jsonData, { patchVersion: datasCache['patch'] });
+      }
       debug(`Requested ${dataType}/${dataParam} datas`, datasCache['patch']);
     } else {
       debug(`Loading ${dataType} datas from cache`);
       jsonData = datasCache[dataType][dataParam].data;
+    }
+
+    if (!jsonData) {
+      return;
     }
 
     if (jsonData.err) {
@@ -182,12 +195,11 @@ import LeagueTooltipsDebug from 'debug';
 
     try {
       debug('Rendering datas in template');
-      this._tooltipElement.innerHTML = template(jsonData);
+      this._tooltipElement.innerHTML = tooltipTemplate(jsonData);
       debug('Rendered datas in template');
     } catch (e) {
       debug('Fail to render datas in template : displaying error');
       this._tooltipElement.innerHTML = _.template(datasCache['errorHtml'])({ error: 'Display error' });
-      console.error(e);
     }
 
     debug('Saving datas in cache');
@@ -210,33 +222,47 @@ import LeagueTooltipsDebug from 'debug';
         console.error(`Error when retrieving the patch. Code ${patchResponse.status} : ${patchResponse.statusText}, message : "${err}".`);
       }
     } catch (e) {
-      console.error(e);
       return;
     }
     debug('Requested patch version', datasCache['patch']);
+  }
+
+  async function loadLoadingTemplate () {
+    debug('Requesting loading template');
+    try {
+      const loadingHtmlResponse = await fetch(BASE_ROUTE + 'html/loading.html');
+      datasCache['loadingHtml'] = await loadingHtmlResponse.text();
+    } catch (e) {
+      datasCache['loadingHtml'] =
+        `<div class="league-tooltip__info">
+          <img src="<%= gifLink %>" alt="Loading ..." />
+        </div>`;
+      return;
+    }
+    debug('Requested loading template');
+  }
+
+  async function loadErrorTemplate () {
+    debug('Requesting error template');
+    try {
+      const errorHtmlResponse = await fetch(BASE_ROUTE + 'html/error.html');
+      datasCache['errorHtml'] = await errorHtmlResponse.text();
+    } catch (e) {
+      datasCache['errorHtml'] =
+        `<div class="league-tooltip__info">
+          <h1 class="league-tooltip__title"><%= error %></h1>
+        </div>`;
+      return;
+    }
+    debug('Requested error template');
   }
 
   async function initTips () {
     debug('Initializing league-tooltips');
 
     loadPatchVersion();
-
-    debug('Requesting "loading" and "error" views');
-    try {
-      const loadingHtmlResponse = await fetch(BASE_ROUTE + 'html/loading.html');
-      datasCache['loadingHtml'] = await loadingHtmlResponse.text();
-    } catch (e) {
-      console.error(e);
-      return;
-    }
-    try {
-      const errorHtmlResponse = await fetch(BASE_ROUTE + 'html/error.html');
-      datasCache['errorHtml'] = await errorHtmlResponse.text();
-    } catch (e) {
-      console.error(e);
-      return;
-    }
-    debug('Requested "loading" and "error" views');
+    loadLoadingTemplate();
+    loadErrorTemplate();
 
     debug('Creating tooltip element');
     let tooltipElementDiv = document.createElement('div');
