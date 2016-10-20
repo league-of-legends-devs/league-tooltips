@@ -2,36 +2,36 @@
 
 # 1.2.2 (Oct. 17th 2016)
 
-**Added :**
+## **Added :**
 
 * Display and error if the datas cannot be retrieved
 
-**Fixed :**
+## **Fixed :**
 
 * Adjust the tooltip position regarding the cursor position and the viewport size
 
 # 1.2.1 (Oct. 15th 2016)
 
-**Added :**
+## **Added :**
 
 * [Client] Tooltip's `z-index` property set to 100
 
 # 1.2.0 (Oct. 15th 2016)
 
-**Added :**
+## **Added :**
 
 * [debug module](https://www.npmjs.com/package/debug) added (see [here](https://github.com/Ilshidur/league-tooltips#debug))
 * [cors](https://github.com/Ilshidur/league-tooltips#--cors) option
 
 # 1.1.1 (Oct. 15th 2016)
 
-**Fixed :**
+## **Fixed :**
 
 * [Server] Fix "Resource interpreted as Stylesheet but transferred with MIME type" warning message on stylesheets.
 
 # 1.1.0 (Oct. 11th 2016)
 
-**Added :**
+## **Added :**
 
 * [Client] Show the tooltip error if the request is errored.
 * [Client & Server] Add champion spell tooltip.
