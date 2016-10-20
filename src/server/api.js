@@ -13,11 +13,6 @@ function linkAPI (protocol, route) {
   return url;
 };
 
-const client = new Client();
-client.on('error', err => {
-  console.error('Something went wrong on the client', err);
-});
-
 function createApiSources () {
   if (!this.protocol) {
     throw new Error('createApiSources() must be bound to an Api instance.');
@@ -84,24 +79,27 @@ function createApiSources () {
 
 function initClient () {
   debug('Initializing client');
+  if (!this.client) {
+    throw new Error('initClient() must be bound to an Api instance and have a client property.');
+  }
   if (!this.sources) {
-    throw new Error('initClient() must be bound to an Api instance.');
+    throw new Error('initClient() must be bound to an Api instance and have a sources property.');
   }
   const sources = this.sources;
   for (const dataType in sources) {
-    client.registerMethod(dataType, sources[dataType].link, 'GET');
+    this.client.registerMethod(dataType, sources[dataType].link, 'GET');
     debug('Registered client method', dataType, sources[dataType].link);
   }
 
   const patchSourceUrl = linkAPI(this.protocol, 'static-data/${region}/v1.2/versions');
-  client.registerMethod('patch', patchSourceUrl, 'GET');
+  this.client.registerMethod('patch', patchSourceUrl, 'GET');
   debug('Registered client method', 'patch', patchSourceUrl);
 
   // Promisify the node client methods and add the hooks
   debug('Promisifying the client');
-  for (const method in client.methods) {
-    const oldMethod = client.methods[method];
-    client.methods[method + 'Async'] = (...args) => new Promise((resolve, reject) => {
+  for (const method in this.client.methods) {
+    const oldMethod = this.client.methods[method];
+    this.client.methods[method + 'Async'] = (...args) => new Promise((resolve, reject) => {
       // API source
       const source = args[0].source;
       if (source && source.beforeRequest) {
@@ -145,6 +143,11 @@ class Api {
     this.locale = locale || 'en_US';
     this.sources = createApiSources.call(this);
 
+    this.client = new Client();
+    this.client.on('error', err => {
+      console.error('Something went wrong on the client', err);
+    });
+
     initClient.call(this);
 
     debug('Initialized API');
@@ -163,7 +166,7 @@ class Api {
     };
     let result;
     try {
-      result = await client.methods['patchAsync'](clientArgs);
+      result = await this.client.methods['patchAsync'](clientArgs);
     } catch (e) {
       throw new Error(e);
     }
@@ -192,7 +195,7 @@ class Api {
 
     let result;
     try {
-      result = await client.methods[dataType + 'Async'](clientArgs);
+      result = await this.client.methods[dataType + 'Async'](clientArgs);
     } catch (e) {
       throw new Error(e);
     }
