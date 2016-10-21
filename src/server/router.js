@@ -6,8 +6,6 @@ import { Api } from './api';
 
 const debug = Debug('league-tooltips:router');
 
-// TODO: Set the locale in the api requests instead of a static value in the middleware config
-
 async function handleDataRequest (dataType, req, res, next) {
   debug('Handling data request', dataType, req.params.id);
   try {

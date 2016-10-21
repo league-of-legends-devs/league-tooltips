@@ -184,6 +184,7 @@ Every mouse hover will launch a query to the `/tooltips/` api route (if not stor
 ## TODO
 
 ### Release :
+- [ ] Set the locale in the api requests instead of a static value in the middleware config
 - [ ] Use the [languages strings](https://developer.riotgames.com/api/methods#!/1055/3627) to show the ratios names in the champion spells
 - [ ] IE9 compatibility
 - [ ] Champion passives
