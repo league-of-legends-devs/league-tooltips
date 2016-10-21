@@ -1,5 +1,11 @@
 # league-tooltips - change log
 
+# 1.3.0 (Oct. 21th 2016)
+
+## **Added :**
+
+* [Server] Use node-cache for server side caching.
+
 # 1.2.2 (Oct. 17th 2016)
 
 ## **Added :**
