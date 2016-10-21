@@ -143,6 +143,8 @@ Allowed values : `http` and `https`.
 
 #### - `cors` (Object)
 
+CORS properties. No CORS if this property is undefined.
+
 * `origin` (String), defaults to `'*'` if `cors` is defined
 * `methods` (String), defaults to `'GET,PUT,POST,DELETE'` if `cors` is defined
 * `headers` (String), defaults to `'Content-Type'` if `cors` is defined
