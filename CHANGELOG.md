@@ -10,11 +10,11 @@
 
 ## **Added :**
 
-* Display and error if the datas cannot be retrieved
+* [Client] Display and error if the datas cannot be retrieved
 
 ## **Fixed :**
 
-* Adjust the tooltip position regarding the cursor position and the viewport size
+* [Client] Adjust the tooltip position regarding the cursor position and the viewport size
 
 # 1.2.1 (Oct. 15th 2016)
 
