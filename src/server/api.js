@@ -131,7 +131,7 @@ function initClient () {
 }
 
 class Api {
-  constructor (apiKey, region, { protocol, locale }) {
+  constructor (apiKey, region, { protocol, locale, cache }) {
     if (protocol && protocol !== 'http' && protocol !== 'https') {
       throw new Error(`forbidden protocol : ${protocol}`);
     }
@@ -149,7 +149,11 @@ class Api {
       console.error('Something went wrong on the client', err);
     });
 
-    this.cache = new Cache({ stdTTL: 100, checkperiod: 120 });
+    const cacheOpts = {
+      stdTTL: (cache || {}).stdTTL || 60*60*12,
+      checkperiod: (cache || {}).checkperiod || 60*60*12
+    };
+    this.cache = new Cache(cacheOpts);
 
     initClient.call(this);
 

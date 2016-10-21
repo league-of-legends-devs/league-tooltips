@@ -147,6 +147,13 @@ Allowed values : `http` and `https`.
 * `methods` (String), defaults to `'GET,PUT,POST,DELETE'` if `cors` is defined
 * `headers` (String), defaults to `'Content-Type'` if `cors` is defined
 
+#### - `cache` (Object)
+
+The [node-cache](https://www.npmjs.com/package/node-cache#options) parameters.
+
+* `stdTTL`: (Number), defaults to `60*60*12` (43200 seconds)
+* `checkperiod`: (Number), defaults to `60*60*12` (43200 seconds)
+
 ## Debug
 
 This module uses the [debug module](https://www.npmjs.com/package/debug).

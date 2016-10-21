@@ -58,7 +58,11 @@ function createRouter (apiKey, region, route, opts) {
   debug('Served static files');
 
   debug('Initializing API');
-  const api = new Api(params.apiKey, params.region, { protocol: opts.protocol, locale: opts.locale });
+  const api = new Api(params.apiKey, params.region, {
+    protocol: opts.protocol,
+    locale: opts.locale,
+    cache: opts.cache
+  });
   debug('Initialized API');
 
   debug('Serving datas routes');
