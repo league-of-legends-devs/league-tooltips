@@ -2,6 +2,7 @@ import path from 'path';
 import Debug from 'debug';
 import _ from 'lodash';
 import { Client } from 'node-rest-client';
+import Cache from 'node-cache';
 
 const RIOT_API = 'global.api.pvp.net/api/lol/';
 
@@ -148,6 +149,8 @@ class Api {
       console.error('Something went wrong on the client', err);
     });
 
+    this.cache = new Cache({ stdTTL: 100, checkperiod: 120 });
+
     initClient.call(this);
 
     debug('Initialized API');
@@ -160,56 +163,72 @@ class Api {
 
   async getPatchVersion () {
     debug('Api.getPatchVersion() call');
-    const clientArgs = {
-      path: { 'region': this.region },
-      parameters: { 'api_key': this.apiKey }
-    };
-    let result;
-    try {
-      result = await this.client.methods['patchAsync'](clientArgs);
-    } catch (e) {
-      throw new Error(e);
+    let patchVersion = null;
+    if (!this.cache.get('api.patchVersion')) {
+      debug('No cache, requesting patch version');
+      const clientArgs = {
+        path: { 'region': this.region },
+        parameters: { 'api_key': this.apiKey }
+      };
+      let result;
+      try {
+        result = await this.client.methods['patchAsync'](clientArgs);
+      } catch (e) {
+        throw new Error(e);
+      }
+      debug('Patch response', result.response.statusCode, result.response.statusMessage);
+      if (!result.response.statusCode.toString().startsWith('2')) {
+        // Not 2xx http code
+        throw new Error(`${result.response.statusCode} : ${result.response.statusMessage}`);
+      }
+      patchVersion = _(result.data).head();
+      this.cache.set('api.patchVersion', patchVersion);
+    } else {
+      debug('Getting patch version from cache');
+      patchVersion = this.cache.get('api.patchVersion');
     }
-    debug('Patch response', result.response.statusCode, result.response.statusMessage);
-    if (!result.response.statusCode.toString().startsWith('2')) {
-      // Not 2xx http code
-      throw new Error(`${result.response.statusCode} : ${result.response.statusMessage}`);
-    }
-    const patchVersion = _(result.data).head();
     debug('Patch version', patchVersion);
     return patchVersion;
   }
 
   async getData (dataType, id) {
     debug('Api.getData() call', dataType, id);
-    if (!this.sources.hasOwnProperty(dataType))
+    if (!this.sources.hasOwnProperty(dataType)) {
       throw new Error(`unknown data type : ${dataType}`);
-
-    const paramsGET = { 'api_key': this.apiKey, 'locale': this.locale };
-    const routeArgs = this.sources[dataType].args;
-    const clientArgs = {
-      path: { 'region': this.region, 'id': id },
-      parameters: _.merge(paramsGET, routeArgs),
-      source: this.sources[dataType]
-    };
-
-    let result;
-    try {
-      result = await this.client.methods[dataType + 'Async'](clientArgs);
-    } catch (e) {
-      throw new Error(e);
     }
-    debug('Data response', result.response.statusCode, result.response.statusMessage);
-    if (!result.response.statusCode.toString().startsWith('2')) {
-      // Not 2xx http code
-      throw new Error(`${result.response.statusCode} : ${result.response.statusMessage}`);
+    let data = null;
+    const key = `api.data_${dataType}-${id}`;
+    if (!this.cache.get(key)) {
+      debug('No cache, requesting data', dataType, id);
+      const paramsGET = { 'api_key': this.apiKey, 'locale': this.locale };
+      const routeArgs = this.sources[dataType].args;
+      const clientArgs = {
+        path: { 'region': this.region, 'id': id },
+        parameters: _.merge(paramsGET, routeArgs),
+        source: this.sources[dataType]
+      };
+      let result;
+      try {
+        result = await this.client.methods[dataType + 'Async'](clientArgs);
+      } catch (e) {
+        throw new Error(e);
+      }
+      debug('Data response', result.response.statusCode, result.response.statusMessage);
+      if (!result.response.statusCode.toString().startsWith('2')) {
+        // Not 2xx http code
+        throw new Error(`${result.response.statusCode} : ${result.response.statusMessage}`);
+      }
+      data = {
+        dataType: dataType,
+        id: id,
+        data: result.data
+      };
+      this.cache.set(key, data);
+    } else {
+      debug('Getting data from cache');
+      data = this.cache.get(key);
     }
-
-    return {
-      dataType: dataType,
-      id: id,
-      data: result.data
-    };
+    return data;
   }
 }
 

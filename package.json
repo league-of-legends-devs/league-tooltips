@@ -37,6 +37,7 @@
     "eslint-plugin-babel": "^3.3.0",
     "express": "^4.14.0",
     "lodash": "^4.16.4",
+    "node-cache": "^4.1.0",
     "node-rest-client": "^2.0.1",
     "whatwg-fetch": "^1.0.0"
   },
