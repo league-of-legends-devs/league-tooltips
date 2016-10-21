@@ -175,6 +175,7 @@ Every mouse hover will launch a query to the `/tooltips/` api route (if not stor
 ## TODO
 
 ### Release :
+- [ ] Use the [languages strings](https://developer.riotgames.com/api/methods#!/1055/3627) to show the ratios names in the champion spells
 - [ ] IE9 compatibility
 - [ ] Cache the retrieved Riot datas on server side
 - [ ] Champion passives
