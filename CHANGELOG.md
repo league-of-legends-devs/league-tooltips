@@ -1,6 +1,6 @@
 # league-tooltips - change log
 
-# (dev)
+# 1.4.0 (Oct. 22th 2016)
 
 ## **Added :**
 
