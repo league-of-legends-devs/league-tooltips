@@ -153,8 +153,11 @@ import LeagueTooltipsDebug from 'debug';
       return;
     }
 
+    const locale = window.leagueTooltips.locale;
+    const key = `${dataParam}_${locale}`;
+
     let templateHtml = null;
-    if (!datasCache.hasOwnProperty(dataType) || !datasCache[dataType].hasOwnProperty(dataParam) || !datasCache[dataType][dataParam].template) {
+    if (!datasCache.hasOwnProperty(dataType) || !datasCache[dataType].hasOwnProperty(key) || !datasCache[dataType][key].template) {
       debug(`Requesting ${dataType} template`);
       try {
         const tooltipQuery = await fetch(BASE_ROUTE + `html/${dataType}.html`);
@@ -167,7 +170,7 @@ import LeagueTooltipsDebug from 'debug';
       debug(`Requested ${dataType} template`);
     } else {
       debug(`Loading ${dataType} template from cache`);
-      templateHtml = datasCache[dataType][dataParam].template;
+      templateHtml = datasCache[dataType][key].template;
     }
 
     if (!templateHtml) {
@@ -177,8 +180,6 @@ import LeagueTooltipsDebug from 'debug';
     const tooltipTemplate = _.template(templateHtml);
 
     let jsonData;
-    const locale = window.leagueTooltips.locale;
-    const key = `${dataParam}_${locale}`;
     if (!datasCache.hasOwnProperty(dataType) || !datasCache[dataType].hasOwnProperty(key) || !datasCache[dataType][key].data) {
       debug(`Requesting ${dataType}/${dataParam} datas`, datasCache['patch']);
       const locale = window.leagueTooltips.locale;
