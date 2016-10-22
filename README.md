@@ -111,7 +111,25 @@ Allowed values : `br`, `eune`, `euw`, `jp`, `kr`, `lan`, `las`, `na`, `oce`, `pb
 
 ### `options`
 
-**optional** (default value : `{}`)
+**optional**, default values :
+
+```javascript
+options = {
+  base: '/',
+  url: '/',
+  fileName: 'league-tips.min.js',
+  protocol: 'https',
+  cors: { // the CORS default options are only set if the 'cors' option is defined
+    origin: '*',
+    methods: 'GET,PUT,POST,DELETE',
+    headers: 'Content-Type'
+  },
+  cache: {
+    stdTTL: 60*60*12,
+    checkPeriod: 60*60*12
+  }
+};
+```
 
 #### - `base` (String)
 
@@ -159,6 +177,8 @@ The name of the Javasript file that will be served to the client.
 will serve the file at `/tootips/league-tips.min.js`.
 
 #### - `protocol` (String)
+
+**default value** : `'https'`
 
 The HTTP protocol to use when querying the Riot API.
 
