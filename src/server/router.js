@@ -63,6 +63,18 @@ function createRouter (apiKey, region, route, opts) {
   });
   debug('Initialized API');
 
+  debug('Serving version route');
+
+  debug('Served version route');
+  router.get('/version', (req, res, next) => {
+    try {
+      const version = require('../../package.json').version;
+      res.send({ version: version });
+    } catch (err) {
+      res.send(JSON.stringify({ err: err.message }));
+    }
+    next();
+  });
   debug('Serving datas routes');
   const sources = api.getSources();
   for (let source of sources) {

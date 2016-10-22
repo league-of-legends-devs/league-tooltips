@@ -1,5 +1,17 @@
 # league-tooltips - change log
 
+# (dev)
+
+## **Added :**
+
+* [Server] Set the locale in the api requests instead of a static value in the middleware config
+* [Client] Request the locales to server
+* [Server] `/version` route
+
+## **Changed :**
+
+* `leagueTooltipsDebug` changed to `leagueTooltips.debug`
+
 # 1.3.0 (Oct. 21th 2016)
 
 ## **Added :**
