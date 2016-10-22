@@ -19,7 +19,7 @@ export default function (apiKey, region, opts = {}) {
 
   debug('Initializing base router');
   const router = express.Router();
-  router.use(route, createRouter(apiKey, region, route, opts));
+  router.use(baseUrl, createRouter(apiKey, region, route, opts));
   debug('Initialized base router');
 
   debug(`Serving the tooltips on ${route}`);

@@ -1,5 +1,11 @@
 # league-tooltips - change log
 
+# 1.4.1 (Oct. 22th 2016)
+
+## **Fixed :**
+
+* [Server] Fix `base` option interfering with the main router, causing wrong base route
+
 # 1.4.0 (Oct. 22th 2016)
 
 ## **Added :**
