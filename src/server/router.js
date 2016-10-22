@@ -8,9 +8,10 @@ const debug = Debug('league-tooltips:router');
 
 async function handleDataRequest (dataType, req, res, next) {
   debug('Handling data request', dataType, req.params.id);
+  const locale = req.query.locale;
   try {
     // 'this' is bound to an Api instance
-    const data = await this.api.getData(dataType, req.params.id);
+    const data = await this.api.getData(dataType, req.params.id, locale);
     res.send(JSON.stringify(data));
     debug('Datas sent');
   } catch (err) {
@@ -58,7 +59,6 @@ function createRouter (apiKey, region, route, opts) {
   debug('Initializing API');
   const api = new Api(params.apiKey, params.region, {
     protocol: opts.protocol,
-    locale: opts.locale,
     cache: opts.cache
   });
   debug('Initialized API');
@@ -83,6 +83,18 @@ function createRouter (apiKey, region, route, opts) {
     next();
   });
   debug('Served patch route');
+  debug('Serving locales route');
+  router.get('/locale/:locale', async (req, res, next) => {
+    const locale = req.params.locale;
+    try {
+      const data = await api.getLocale(locale);
+      res.send({ locale: data });
+    } catch (err) {
+      res.send(JSON.stringify({ err: err.message }));
+    }
+    next();
+  });
+  debug('Served locales route');
   debug('Served datas routes');
 
   const fileName = opts.fileName || 'league-tips.min.js';

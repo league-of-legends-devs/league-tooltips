@@ -131,10 +131,6 @@ The name of the Javasript file that will be served to the client.
 
 will serve the file at `/tootips/league-tips.min.js`.
 
-#### - `locale` (String)
-
-The language of the retrieved datas (e.g., `en_US`, `es_ES`, `fr_FR` ...).
-
 #### - `protocol` (String)
 
 The HTTP protocol to use when querying the Riot API.
@@ -156,6 +152,11 @@ The [node-cache](https://www.npmjs.com/package/node-cache#options) parameters.
 * `stdTTL`: (Number), defaults to `60*60*12` (43200 seconds)
 * `checkperiod`: (Number), defaults to `60*60*12` (43200 seconds)
 
+## Language
+
+You can change the language by setting the `leagueTooltips.locale` value.
+The locale is the language of the retrieved datas (e.g., `en_US`, `es_ES`, `fr_FR` ...).
+
 ## Debug
 
 This module uses the [debug module](https://www.npmjs.com/package/debug).
@@ -164,7 +165,7 @@ In order to show the debug logs, you must enable the debugging logs.
 * **Server :** you must set the `league-tooltips:*` value in the `DEBUG` environment variable :
  * Linux : `export DEBUG=league-tooltips:*`
  * Windows : `set DEBUG=league-tooltips:*`
-* **Browser :** type the following in the console : `leagueTooltipsDebug.enable('*')`
+* **Browser :** type the following in the console : `leagueTooltips.debug.enable('*')`
 
 
 ## How does it work ?
@@ -184,8 +185,7 @@ Every mouse hover will launch a query to the `/tooltips/` api route (if not stor
 ## TODO
 
 ### Release :
-- [ ] Set the locale in the api requests instead of a static value in the middleware config
-- [ ] Use the [languages strings](https://developer.riotgames.com/api/methods#!/1055/3627) to show the ratios names in the champion spells
+- [ ] Use the retrieved [languages strings](https://developer.riotgames.com/api/methods#!/1055/3627) to show the ratios names in the champion spells
 - [ ] IE9 compatibility
 - [ ] Champion passives
 - [ ] Allow to choose between setting the data id or the data key in `data-*`

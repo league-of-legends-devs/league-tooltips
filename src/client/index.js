@@ -6,7 +6,10 @@ import LeagueTooltipsDebug from 'debug';
 (() => {
 
   const debug = LeagueTooltipsDebug('league-tooltips');
-  window.leagueTooltipsDebug = LeagueTooltipsDebug;
+  window.leagueTooltips = {
+    debug: LeagueTooltipsDebug,
+    locale: 'en_US'
+  };
 
   // $BASE_ROUTE won't be minified by Webpack and will be replaced on-the-fly with the base route set in the middleware configuration
   const BASE_ROUTE_FROM_CONFIG = $BASE_ROUTE || null;
@@ -174,9 +177,12 @@ import LeagueTooltipsDebug from 'debug';
     const tooltipTemplate = _.template(templateHtml);
 
     let jsonData;
-    if (!datasCache.hasOwnProperty(dataType) || !datasCache[dataType].hasOwnProperty(dataParam) || !datasCache[dataType][dataParam].data) {
+    const locale = window.leagueTooltips.locale;
+    const key = `${dataParam}_${locale}`;
+    if (!datasCache.hasOwnProperty(dataType) || !datasCache[dataType].hasOwnProperty(key) || !datasCache[dataType][key].data) {
       debug(`Requesting ${dataType}/${dataParam} datas`, datasCache['patch']);
-      const queryUrl = BASE_ROUTE + dataType + '/' + dataParam;
+      const locale = window.leagueTooltips.locale;
+      const queryUrl = BASE_ROUTE + dataType + '/' + dataParam + '?locale=' + locale;
       try {
         const response = await fetch(queryUrl);
         jsonData = await response.json();
@@ -190,7 +196,7 @@ import LeagueTooltipsDebug from 'debug';
       debug(`Requested ${dataType}/${dataParam} datas`, datasCache['patch']);
     } else {
       debug(`Loading ${dataType} datas from cache`);
-      jsonData = datasCache[dataType][dataParam].data;
+      jsonData = datasCache[dataType][key].data;
     }
 
     if (!jsonData) {
@@ -216,7 +222,7 @@ import LeagueTooltipsDebug from 'debug';
     if (!datasCache[dataType]) {
       datasCache[dataType] = {};
     }
-    datasCache[dataType][dataParam] = {
+    datasCache[dataType][key] = {
       data: jsonData,
       template: templateHtml
     };
@@ -235,6 +241,22 @@ import LeagueTooltipsDebug from 'debug';
       return;
     }
     debug('Requested patch version', datasCache['patch']);
+  }
+
+  async function loadLocale () {
+    debug('Requesting locale');
+    const locale = window.leagueTooltips.locale;
+    try {
+      const localeResponse = await fetch(BASE_ROUTE + 'locale/' + locale);
+      datasCache['locale'] = await localeResponse.json();
+      const err = datasCache['locale'].err;
+      if (!localeResponse.status.toString().startsWith('2') || err) {
+        console.error(`Error when retrieving the locale. Code ${localeResponse.status} : ${localeResponse.statusText}, message : "${err}".`);
+      }
+    } catch (e) {
+      return;
+    }
+    debug('Requested locale', locale);
   }
 
   async function loadLoadingTemplate () {
@@ -271,6 +293,7 @@ import LeagueTooltipsDebug from 'debug';
     debug('Initializing league-tooltips');
 
     loadPatchVersion();
+    loadLocale();
     loadLoadingTemplate();
     loadErrorTemplate();
 

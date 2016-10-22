@@ -95,6 +95,10 @@ function initClient () {
   this.client.registerMethod('patch', patchSourceUrl, 'GET');
   debug('Registered client method', 'patch', patchSourceUrl);
 
+  const localesSourceUrl = linkAPI(this.protocol, 'static-data/${region}/v1.2/language-strings');
+  this.client.registerMethod('locale', localesSourceUrl, 'GET');
+  debug('Registered client method', 'locale', localesSourceUrl);
+
   // Promisify the node client methods and add the hooks
   debug('Promisifying the client');
   for (const method in this.client.methods) {
@@ -130,7 +134,7 @@ function initClient () {
 }
 
 class Api {
-  constructor (apiKey, region, { protocol, locale, cache }) {
+  constructor (apiKey, region, { protocol, cache }) {
     if (protocol && protocol !== 'http' && protocol !== 'https') {
       throw new Error(`forbidden protocol : ${protocol}`);
     }
@@ -140,7 +144,6 @@ class Api {
     this.apiKey = apiKey;
     this.region = region;
     this.protocol = protocol || 'https';
-    this.locale = locale || 'en_US';
     this.sources = createApiSources.call(this);
 
     this.client = new Client();
@@ -194,16 +197,46 @@ class Api {
     return patchVersion;
   }
 
-  async getData (dataType, id) {
-    debug('Api.getData() call', dataType, id);
+  async getLocale (locale) {
+    debug('Api.getLocales() call');
+    const localeKey = `api.locale_${locale}`;
+    let localeData = null;
+    if (!this.cache.get(localeKey)) {
+      debug('No cache, requesting locale', locale);
+      const clientArgs = {
+        path: { 'region': this.region },
+        parameters: { 'api_key': this.apiKey }
+      };
+      let result;
+      try {
+        result = await this.client.methods['localeAsync'](clientArgs);
+      } catch (e) {
+        throw new Error(e);
+      }
+      debug('Locale response', result.response.statusCode, result.response.statusMessage);
+      if (!result.response.statusCode.toString().startsWith('2')) {
+        // Not 2xx http code
+        throw new Error(`${result.response.statusCode} : ${result.response.statusMessage}`);
+      }
+      localeData = result.data;
+      this.cache.set(localeKey, localeData);
+    } else {
+      debug('Getting locale from cache', locale);
+      localeData = this.cache.get(localeKey);
+    }
+    return localeData;
+  }
+
+  async getData (dataType, id, locale = 'en_US') {
+    debug('Api.getData() call', dataType, id, locale);
     if (!this.sources.hasOwnProperty(dataType)) {
       throw new Error(`unknown data type : ${dataType}`);
     }
     let data = null;
-    const key = `api.data_${dataType}-${id}`;
+    const key = `api.data_${dataType}-${id}_${locale}`;
     if (!this.cache.get(key)) {
-      debug('No cache, requesting data', dataType, id);
-      const paramsGET = { 'api_key': this.apiKey, 'locale': this.locale };
+      debug('No cache, requesting data', dataType, id, locale);
+      const paramsGET = { 'api_key': this.apiKey, 'locale': locale };
       const routeArgs = this.sources[dataType].args;
       const clientArgs = {
         path: { 'region': this.region, 'id': id },
