@@ -7,6 +7,7 @@
 * [Server] Set the locale in the api requests instead of a static value in the middleware config
 * [Client] Request the locales to server
 * [Server] `/version` route
+* [Server] `base` middleware option
 
 ## **Changed :**
 

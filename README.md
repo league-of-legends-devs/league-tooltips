@@ -113,9 +113,36 @@ Allowed values : `br`, `eune`, `euw`, `jp`, `kr`, `lan`, `las`, `na`, `oce`, `pb
 
 **optional** (default value : `{}`)
 
+#### - `base` (String)
+
+**default value** : `'/'`
+
+This `base` option is required when the middleware is assigned to a particular route :
+
+e.g.:
+
+`app.use('/tooltips', leagueTips('RIOT_API_KEY', 'euw'));` instead of
+
+`app.use(leagueTips('RIOT_API_KEY', 'euw'));`
+
+```javascript
+// Be careful if you assign this module to a specific route.
+// This code below won't work because the module can't automatically resolve the base route of the router wherein it is,
+// which will cause an incorrect API url in the client file.
+// Works :
+app.use(leagueTips('RIOT_API_KEY', 'euw'));
+
+// WON'T WORK :
+app.use('/tooltips', leagueTips('RIOT_API_KEY', 'euw'));
+
+// Fix : the module can now generate a proper base url
+// in the client file for the dataq queries :
+app.use('/tooltips', leagueTips('RIOT_API_KEY', 'euw', { base: '/tooltips' }));
+```
+
 #### - `url` (String)
 
-**default value** : `/` (e.g. : `/static/tooltips`)
+**default value** : `'/'` (e.g. : `/tooltips`)
 
 The route where the static files and the datas will be served.
 
