@@ -238,6 +238,7 @@ Every mouse hover will launch a query to the `/tooltips/` api route (if not stor
 - [ ] Allow to choose between setting the data id or the data key in `data-*`
 - [ ] Add the mouseover listener to the newly created tooltips in the DOM
 - [ ] Make the API return the proper HTTP error code (usually always 200)
+- [ ] Modular client file
 
 ### Ideas :
 - [ ] Serve the templates in `league-tooltips.min.js` as lodash template in order to prevent direct templates requests to the server
