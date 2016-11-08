@@ -153,6 +153,10 @@ import LeagueTooltipsDebug from 'debug';
       tooltip.y = 0;
     }
 
+    tooltip.adjustBox();
+  };
+
+  tooltip.adjustBox = function adjustBox() {
     if (tooltip.x + tooltip.tooltipElement.clientWidth < window.innerWidth &&
         tooltip.y + tooltip.tooltipElement.clientHeight < window.innerHeight) {
       tooltip.moveTo(
