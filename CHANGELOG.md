@@ -1,5 +1,17 @@
 # league-tooltips - change log
 
+# 1.4.2 (Nov. 8th 2016)
+
+## **Added :**
+
+* [Client] The tooltip box no longer overflows after it is rendered with the datas.
+
+## **Changed :**
+
+* Yarn support
+* Use Airbnb Javascript guidelines
+* Little code fixes
+
 # 1.4.1 (Oct. 22th 2016)
 
 ## **Fixed :**
