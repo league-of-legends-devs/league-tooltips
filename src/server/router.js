@@ -9,7 +9,7 @@ const debug = Debug('league-tooltips:router');
 
 const MODULE_VERSION = require('../../package.json').version;
 
-const handleDataRequest = async (dataType, req, res, next) => {
+const handleDataRequest = async function handleDataRequest(dataType, req, res, next) {
   debug('Handling data request', dataType, req.params.id);
   const locale = req.query.locale;
   try {
@@ -19,7 +19,7 @@ const handleDataRequest = async (dataType, req, res, next) => {
     debug('Datas sent');
   } catch (err) {
     res.send(JSON.stringify({ err: err.message }));
-    debug('Error', err.mesage, err);
+    debug('Error', err.message, err.stack);
   }
   next();
 };
@@ -38,16 +38,29 @@ const allowCrossDomain = (cors = {}) => {
 class Router {
   constructor(apiKey, region, route, opts) {
     debug('Initializing router');
-    this.params = { apiKey, region, route, opts: opts || {} };
-    if (!this.params.apiKey) {
+
+    if (!apiKey) {
       throw new Error('api key undefined');
     }
-    if (!this.params.region) {
+    if (!region) {
       throw new Error('region undefined');
     }
-    if (!this.params.route) {
+    if (!route) {
       throw new Error('route undefined');
     }
+
+    this.apiKey = apiKey;
+    this.region = region;
+    this.route = route;
+    this.opts = opts || {};
+
+    debug('Initializing API');
+    this.api = new Api(this.apiKey, this.region, {
+      protocol: this.opts.protocol,
+      cache: this.opts.cache,
+    });
+    debug('Initialized API');
+
     debug('Initialized router');
   }
 
@@ -67,37 +80,28 @@ class Router {
     router.use('/styles', express.static(path.resolve(__dirname, '../client/styles')));
     debug('Served static files');
 
-    debug('Initializing API');
-    const api = new Api(this.params.apiKey, this.params.region, {
-      protocol: this.opts.protocol,
-      cache: this.opts.cache,
-    });
-    debug('Initialized API');
-
     debug('Serving version route');
 
     debug('Served version route');
     router.get('/version', (req, res, next) => {
-      try {
-        res.send({ version: MODULE_VERSION });
-      } catch (err) {
-        res.send(JSON.stringify({ err: err.message }));
-      }
+      debug('Serving version', MODULE_VERSION);
+      res.send({ version: MODULE_VERSION });
       next();
     });
     debug('Serving datas routes');
-    const sources = api.getSources();
+    const sources = this.api.getSources();
     _.values(sources).forEach((source) => {
       debug(`Serving ${source} route`);
       router.get(`/${source}/:id`, (...prms) => {
-        handleDataRequest.call({ api }, source, ...prms);
+        handleDataRequest.call({ api: this.api }, source, ...prms);
       });
       debug(`Served ${source} route`);
     });
     debug('Serving patch route');
     router.get('/patch', async (req, res, next) => {
+      debug('Serving patch version');
       try {
-        const data = await api.getPatchVersion();
+        const data = await this.api.getPatchVersion();
         res.send({ patch: data });
       } catch (err) {
         res.send(JSON.stringify({ err: err.message }));
@@ -107,9 +111,10 @@ class Router {
     debug('Served patch route');
     debug('Serving locales route');
     router.get('/locale/:locale', async (req, res, next) => {
+      debug('Serving locale', req.params.locale);
       const locale = req.params.locale;
       try {
-        const data = await api.getLocale(locale);
+        const data = await this.api.getLocale(locale);
         res.send({ locale: data });
       } catch (err) {
         res.send(JSON.stringify({ err: err.message }));
@@ -121,25 +126,30 @@ class Router {
 
     const fileName = this.opts.fileName || 'league-tips.min.js';
     const originalClientFile = fs.readFileSync(path.resolve(__dirname, '../client', 'league-tips.min.js'), { encoding: 'utf-8' });
-    const clientFile = originalClientFile.replace('$BASE_ROUTE', `'${this.params.route}'`);
-    debug(`Serving ${fileName} with ${this.params.route} as $BASE_ROUTE`);
+    const clientFile = originalClientFile.replace('$BASE_ROUTE', `'${this.route}'`);
+    debug(`Serving ${fileName} with ${this.route} as $BASE_ROUTE`);
     router.get(`/${fileName}`, (req, res) => {
+      debug('Serving', fileName);
       res.setHeader('Content-Type', 'application/javascript');
       res.send(clientFile);
     });
     router.get(`/${fileName}.map`, (req, res) => {
+      debug('Serving source map', fileName);
       res.setHeader('Content-Type', 'application/javascript');
       res.send(fs.readFileSync(path.resolve(__dirname, '../client', 'league-tips.min.js.map'), { encoding: 'utf-8' }));
     });
     debug(`Served ${fileName}`);
     debug('Serving views');
     router.use('/html/loading.html', (req, res) => {
+      debug('Serving', 'loading.html');
       res.sendFile(path.resolve(__dirname, '../client/views', 'loading.html'));
     });
     router.use('/html/error.html', (req, res) => {
+      debug('Serving', 'error.html');
       res.sendFile(path.resolve(__dirname, '../client/views', 'error.html'));
     });
     router.get('/html/:type.html', (req, res) => {
+      debug('Serving', `${req.params.type}.html`);
       res.sendFile(path.resolve(__dirname, '../client/views', `tooltip-${req.params.type}.html`));
     });
     debug('Served views');
