@@ -6,6 +6,8 @@ import { Api } from './api';
 
 const debug = Debug('league-tooltips:router');
 
+const MODULE_VERSION = require('../../package.json').version;
+
 async function handleDataRequest (dataType, req, res, next) {
   debug('Handling data request', dataType, req.params.id);
   const locale = req.query.locale;
@@ -68,8 +70,7 @@ function createRouter (apiKey, region, route, opts) {
   debug('Served version route');
   router.get('/version', (req, res, next) => {
     try {
-      const version = require('../../package.json').version;
-      res.send({ version: version });
+      res.send({ version: MODULE_VERSION });
     } catch (err) {
       res.send(JSON.stringify({ err: err.message }));
     }
