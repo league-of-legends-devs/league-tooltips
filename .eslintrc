@@ -10,5 +10,9 @@
     "rules": {
         "generator-star-spacing": 0,
         "semi": 2
+    },
+    "env": {
+      "browser": true,
+      "node": true
     }
 }
