@@ -94,7 +94,7 @@ function initClient() {
     throw new Error('initClient() must be bound to an Api instance and have a sources property.');
   }
   const sources = this.sources;
-  _.keys(sources).forEeach((dataType) => {
+  _.keys(sources).forEach((dataType) => {
     this.client.registerMethod(dataType, sources[dataType].link, 'GET');
     debug('Registered client method', dataType, sources[dataType].link);
   });
