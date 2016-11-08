@@ -6,7 +6,9 @@
         },
     },
     "parser": "babel-eslint",
+    "extends": "airbnb/base",
     "rules": {
+        "generator-star-spacing": 0,
         "semi": 2
     }
 }

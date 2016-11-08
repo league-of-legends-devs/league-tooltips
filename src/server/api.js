@@ -8,56 +8,62 @@ const RIOT_API = 'global.api.pvp.net/api/lol/';
 
 const debug = Debug('league-tooltips:api');
 
-function linkAPI (protocol, route) {
-  const url = protocol + '://' + path.join(RIOT_API, route);
+function linkAPI(protocol, route) {
+  const linkDomain = path.join(RIOT_API, route);
+  const url = `${protocol}://${linkDomain}`;
   debug('Linking API', url);
   return url;
-};
+}
 
-function createApiSources () {
+function createApiSources() {
   if (!this.protocol) {
     throw new Error('createApiSources() must be bound to an Api instance.');
   }
   return {
-    'item': {
+    item: {
+      // eslint-disable-next-line no-template-curly-in-string
       link: linkAPI(this.protocol, 'static-data/${region}/v1.2/item/${id}'),
       args: {
-        itemData: ['tags', 'image', 'gold'].join(',')
-      }
+        itemData: ['tags', 'image', 'gold'].join(','),
+      },
     },
-    'champion': {
+    champion: {
+      // eslint-disable-next-line no-template-curly-in-string
       link: linkAPI(this.protocol, 'static-data/${region}/v1.2/champion/${id}'),
       args: {
-        champData: ['tags', 'stats', 'image', 'passive', 'spells', 'info'].join(',')
-      }
+        champData: ['tags', 'stats', 'image', 'passive', 'spells', 'info'].join(','),
+      },
     },
-    'summonerspell': {
+    summonerspell: {
+      // eslint-disable-next-line no-template-curly-in-string
       link: linkAPI(this.protocol, 'static-data/${region}/v1.2/summoner-spell/${id}'),
       args: {
-        spellData: ['image', 'rangeBurn', 'cooldownBurn', 'modes'].join(',')
-      }
+        spellData: ['image', 'rangeBurn', 'cooldownBurn', 'modes'].join(','),
+      },
     },
-    'rune': {
+    rune: {
+      // eslint-disable-next-line no-template-curly-in-string
       link: linkAPI(this.protocol, 'static-data/${region}/v1.2/rune/${id}'),
       args: {
-        runeData: ['tags', 'image'].join(',')
-      }
+        runeData: ['tags', 'image'].join(','),
+      },
     },
-    'mastery': {
+    mastery: {
+      // eslint-disable-next-line no-template-curly-in-string
       link: linkAPI(this.protocol, 'static-data/${region}/v1.2/mastery/${id}'),
       args: {
-        masteryData: ['ranks', 'image', 'masteryTree'].join(',')
-      }
+        masteryData: ['ranks', 'image', 'masteryTree'].join(','),
+      },
     },
-    'championspell': {
-      beforeRequest: function () {
+    championspell: {
+      beforeRequest() {
         // 'this' is bound to 'clientArgs'
         this.beforeId = this.path.id;
         this.path.id = this.path.id.split('.')[0];
         debug('championspell.beforeRequest().beforeId', this.beforeId);
         debug('championspell.beforeRequest().path.id', this.path.id);
       },
-      afterRequest: function () {
+      afterRequest() {
         // 'this' is bound to the data retrieved and the 'clientArgs'
         const spells = ['Q', 'W', 'E', 'R'];
         const key = _.last(this.args.beforeId.split('.'));
@@ -65,19 +71,21 @@ function createApiSources () {
         if (index === -1) {
           throw new Error('Invalid spell key');
         }
-        this.data = this.data.spells[index];
+        const data = this.data.spells[index];
         debug('championspell.afterRequest().index', index);
         debug('championspell.afterRequest().key', key);
+        return data;
       },
+      // eslint-disable-next-line no-template-curly-in-string
       link: linkAPI(this.protocol, 'static-data/${region}/v1.2/champion/${id}'),
       args: {
-        champData: ['tags', 'stats', 'image', 'passive', 'spells', 'info'].join(',')
-      }
-    }
+        champData: ['tags', 'stats', 'image', 'passive', 'spells', 'info'].join(','),
+      },
+    },
   };
 }
 
-function initClient () {
+function initClient() {
   debug('Initializing client');
   if (!this.client) {
     throw new Error('initClient() must be bound to an Api instance and have a client property.');
@@ -86,26 +94,30 @@ function initClient () {
     throw new Error('initClient() must be bound to an Api instance and have a sources property.');
   }
   const sources = this.sources;
-  for (const dataType in sources) {
+  _.keys(sources).forEeach((dataType) => {
     this.client.registerMethod(dataType, sources[dataType].link, 'GET');
     debug('Registered client method', dataType, sources[dataType].link);
-  }
+  });
 
+  // eslint-disable-next-line no-template-curly-in-string
   const patchSourceUrl = linkAPI(this.protocol, 'static-data/${region}/v1.2/versions');
   this.client.registerMethod('patch', patchSourceUrl, 'GET');
   debug('Registered client method', 'patch', patchSourceUrl);
 
+  // eslint-disable-next-line no-template-curly-in-string
   const localesSourceUrl = linkAPI(this.protocol, 'static-data/${region}/v1.2/language-strings');
   this.client.registerMethod('locale', localesSourceUrl, 'GET');
   debug('Registered client method', 'locale', localesSourceUrl);
 
   // Promisify the node client methods and add the hooks
   debug('Promisifying the client');
-  for (const method in this.client.methods) {
+  _.keys(this.client.methods).forEach((method) => {
     const oldMethod = this.client.methods[method];
-    this.client.methods[method + 'Async'] = (...args) => new Promise((resolve, reject) => {
-      // API source
-      const source = args[0].source;
+    this.client.methods[`${method}Async`] = (...args) => new Promise((resolve, reject) => {
+      // beforeRequest changes the client params
+      // afterRequest returns the datas and changes nothing
+
+      const source = args[0].source; // API source
       if (source && source.beforeRequest) {
         try {
           // Only pass the client args
@@ -116,25 +128,26 @@ function initClient () {
       }
 
       oldMethod(...args, (data, response) => {
-        let hookData = { args: args[0], data: data };
+        const hookData = { args: args[0], data };
+        let dataResult = data;
         if (source && source.afterRequest) {
           try {
-            source.afterRequest.call(hookData);
+            dataResult = source.afterRequest.call(hookData);
           } catch (e) {
             reject(e);
           }
         }
 
-        resolve({ data: hookData.data, response: response });
+        resolve({ data: dataResult, response });
       });
     });
-  }
+  });
   debug('Promisifyed the client');
   debug('Initialized client');
 }
 
 class Api {
-  constructor (apiKey, region, { protocol, cache }) {
+  constructor(apiKey, region, { protocol, cache }) {
     if (protocol && protocol !== 'http' && protocol !== 'https') {
       throw new Error(`forbidden protocol : ${protocol}`);
     }
@@ -147,13 +160,13 @@ class Api {
     this.sources = createApiSources.call(this);
 
     this.client = new Client();
-    this.client.on('error', err => {
-      console.error('Something went wrong on the client', err);
+    this.client.on('error', (err) => {
+      debug('Error on the REST client', err);
     });
 
     const cacheOpts = {
-      stdTTL: (cache || {}).stdTTL || 60*60*12,
-      checkperiod: (cache || {}).checkperiod || 60*60*12
+      stdTTL: (cache || {}).stdTTL || 60 * 60 * 12,
+      checkperiod: (cache || {}).checkperiod || 60 * 60 * 12,
     };
     this.cache = new Cache(cacheOpts);
 
@@ -162,23 +175,23 @@ class Api {
     debug('Initialized API');
   }
 
-  getSources () {
+  getSources() {
     debug('Api.getSources() call');
     return _.keys(this.sources);
   }
 
-  async getPatchVersion () {
+  async getPatchVersion() {
     debug('Api.getPatchVersion() call');
     let patchVersion = null;
     if (!this.cache.get('api.patchVersion')) {
       debug('No cache, requesting patch version');
       const clientArgs = {
-        path: { 'region': this.region },
-        parameters: { 'api_key': this.apiKey }
+        path: { region: this.region },
+        parameters: { api_key: this.apiKey },
       };
       let result;
       try {
-        result = await this.client.methods['patchAsync'](clientArgs);
+        result = await this.client.methods.patchAsync(clientArgs);
       } catch (e) {
         throw new Error(e);
       }
@@ -197,19 +210,19 @@ class Api {
     return patchVersion;
   }
 
-  async getLocale (locale) {
+  async getLocale(locale) {
     debug('Api.getLocales() call');
     const localeKey = `api.locale_${locale}`;
     let localeData = null;
     if (!this.cache.get(localeKey)) {
       debug('No cache, requesting locale', locale);
       const clientArgs = {
-        path: { 'region': this.region },
-        parameters: { 'api_key': this.apiKey }
+        path: { region: this.region },
+        parameters: { api_key: this.apiKey },
       };
       let result;
       try {
-        result = await this.client.methods['localeAsync'](clientArgs);
+        result = await this.client.methods.localeAsync(clientArgs);
       } catch (e) {
         throw new Error(e);
       }
@@ -227,25 +240,25 @@ class Api {
     return localeData;
   }
 
-  async getData (dataType, id, locale = 'en_US') {
+  async getData(dataType, id, locale = 'en_US') {
     debug('Api.getData() call', dataType, id, locale);
-    if (!this.sources.hasOwnProperty(dataType)) {
+    if (!{}.hasOwnProperty.call(this.sources, dataType)) {
       throw new Error(`unknown data type : ${dataType}`);
     }
     let data = null;
     const key = `api.data_${dataType}-${id}_${locale}`;
     if (!this.cache.get(key)) {
       debug('No cache, requesting data', dataType, id, locale);
-      const paramsGET = { 'api_key': this.apiKey, 'locale': locale };
+      const paramsGET = { api_key: this.apiKey, locale };
       const routeArgs = this.sources[dataType].args;
       const clientArgs = {
-        path: { 'region': this.region, 'id': id },
+        path: { region: this.region, id },
         parameters: _.merge(paramsGET, routeArgs),
-        source: this.sources[dataType]
+        source: this.sources[dataType],
       };
       let result;
       try {
-        result = await this.client.methods[dataType + 'Async'](clientArgs);
+        result = await this.client.methods[`${dataType}Async`](clientArgs);
       } catch (e) {
         throw new Error(e);
       }
@@ -255,9 +268,9 @@ class Api {
         throw new Error(`${result.response.statusCode} : ${result.response.statusMessage}`);
       }
       data = {
-        dataType: dataType,
-        id: id,
-        data: result.data
+        dataType,
+        id,
+        data: result.data,
       };
       this.cache.set(key, data);
     } else {
@@ -268,4 +281,4 @@ class Api {
   }
 }
 
-export { Api };
+export default Api;

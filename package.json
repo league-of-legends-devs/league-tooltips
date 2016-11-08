@@ -54,6 +54,8 @@
     "copy-webpack-plugin": "^3.0.1",
     "del": "^2.2.2",
     "eslint": "^3.4.0",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-eslint": "^3.0.1",
