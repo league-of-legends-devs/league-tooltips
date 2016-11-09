@@ -1,5 +1,11 @@
 # league-tooltips - change log
 
+# 1.4.3 (Nov. 9th 2016)
+
+## **Fixed :**
+
+* [Server] The Router no longer keep the API as an attribute for security purposes.
+
 # 1.4.2 (Nov. 8th 2016)
 
 ## **Added :**
