@@ -49,13 +49,12 @@ class Router {
       throw new Error('route undefined');
     }
 
-    this.apiKey = apiKey;
     this.region = region;
     this.route = route;
     this.opts = opts || {};
 
     debug('Initializing API');
-    this.api = new Api(this.apiKey, this.region, {
+    this.api = new Api(apiKey, this.region, {
       protocol: this.opts.protocol,
       cache: this.opts.cache,
     });
