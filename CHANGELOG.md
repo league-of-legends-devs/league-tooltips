@@ -7,7 +7,7 @@
 * [Demo] Add Yarn support for the deploy script
 * [Demo] Exclude eslint
 * [Server] Fix log being called too early
-* Multiple code fixes
+* Multiple code and linting fixes
 
 # 1.4.3 (Nov. 9th 2016)
 
