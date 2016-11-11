@@ -5,6 +5,7 @@
 ## **Added :**
 
 * [Demo] Add Yarn support for the deploy script
+* [Demo] Exclude eslint
 * [Server] Fix log being called too early
 * Multiple code fixes
 
