@@ -1,5 +1,11 @@
 # league-tooltips - change log
 
+# Current
+
+## **Added :**
+
+* [Demo] Add Yarn support for the deploy script
+
 # 1.4.3 (Nov. 9th 2016)
 
 ## **Fixed :**
