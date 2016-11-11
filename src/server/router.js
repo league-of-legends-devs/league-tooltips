@@ -80,13 +80,12 @@ class Router {
     debug('Served static files');
 
     debug('Serving version route');
-
-    debug('Served version route');
     router.get('/version', (req, res, next) => {
       debug('Serving version', MODULE_VERSION);
       res.send({ version: MODULE_VERSION });
       next();
     });
+    debug('Served version route');
     debug('Serving datas routes');
     const sources = this.api.getSources();
     _.values(sources).forEach((source) => {

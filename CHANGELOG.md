@@ -5,6 +5,7 @@
 ## **Added :**
 
 * [Demo] Add Yarn support for the deploy script
+* [Server] Fix log being called too early
 * Multiple code fixes
 
 # 1.4.3 (Nov. 9th 2016)
