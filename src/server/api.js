@@ -93,10 +93,9 @@ function initClient() {
   if (!this.sources) {
     throw new Error('initClient() must be bound to an Api instance and have a sources property.');
   }
-  const sources = this.sources;
-  _.keys(sources).forEach((dataType) => {
-    this.client.registerMethod(dataType, sources[dataType].link, 'GET');
-    debug('Registered client method', dataType, sources[dataType].link);
+  _.keys(this.sources).forEach((dataType) => {
+    this.client.registerMethod(dataType, this.sources[dataType].link, 'GET');
+    debug('Registered client method', dataType, this.sources[dataType].link);
   });
 
   // eslint-disable-next-line no-template-curly-in-string
