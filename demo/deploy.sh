@@ -2,7 +2,8 @@
 
 # Required :
 # * pm2
-#
+# Optional :
+# * yarn
 
 cd `dirname $0`
 
@@ -15,14 +16,23 @@ then
 	echo "PM2 already installed."
 else
 	echo "Installing PM2 ..."
-	npm install pm2 -g
+	if which yarn > /dev/null; then
+		yarn global add pm2
+	else
+		npm install pm2 -g
+	fi
 	echo "Installed PM2 !"
 fi
 
 ## Install dependencies
 echo "Installing dependencies ..."
-npm install
-(cd .. && npm install)
+if which yarn > /dev/null; then
+	yarn
+	(cd .. && yarn)
+else
+	npm install
+	(cd .. && npm install)
+fi
 echo "Installed dependencies !"
 
 ## Build
