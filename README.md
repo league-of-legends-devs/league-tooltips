@@ -12,7 +12,7 @@ Express middleware for League of Legends tooltips : champions, items, summoner s
 
 ### Server
 
-Tested using Node 6.2.1.
+Requires Node 4.0.0 or upper.
 
 ### Client
 
