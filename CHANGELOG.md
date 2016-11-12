@@ -6,6 +6,7 @@
 
 * [Demo] Add Yarn support for the deploy script
 * [Demo] Exclude eslint
+* [Demo] Fix public folder not found when the demo is ran outside its directory
 * [Server] Fix log being called too early
 * Multiple code and linting fixes
 
