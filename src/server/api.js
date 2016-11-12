@@ -217,7 +217,7 @@ class Api {
       debug('No cache, requesting locale', locale);
       const clientArgs = {
         path: { region: this.region },
-        parameters: { api_key: this.apiKey },
+        parameters: { api_key: this.apiKey, locale },
       };
       let result;
       try {
