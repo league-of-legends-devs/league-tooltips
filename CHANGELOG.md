@@ -2,6 +2,10 @@
 
 # Current
 
+## **Fixed :**
+
+* [Server] Fix requested language strings endpoint always returning the same language regardless the given locale
+
 ## **Added :**
 
 * [Demo] Add Yarn support for the deploy script
