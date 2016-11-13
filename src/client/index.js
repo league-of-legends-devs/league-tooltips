@@ -25,68 +25,80 @@ import LeagueTooltipsDebug from 'debug';
 
   const datasCache = {};
 
-  async function requestPatchVersion() {
-    debug('Requesting patch version');
-    try {
-      const patchResponse = await fetch(`${BASE_ROUTE}patch`);
-      datasCache.patch = await patchResponse.json();
-      const err = datasCache.patch.err;
-      if (!patchResponse.status.toString().startsWith('2') || err) {
-        debug(`Error when retrieving the patch. Code ${patchResponse.status} : ${patchResponse.statusText}, message : "${err}".`);
+  function requestPatchVersion() {
+    return new Promise(async (resolve, reject) => {
+      debug('Requesting patch version');
+      try {
+        const patchResponse = await fetch(`${BASE_ROUTE}patch`);
+        datasCache.patch = await patchResponse.json();
+        const err = datasCache.patch.err;
+        if (!patchResponse.status.toString().startsWith('2') || err) {
+          debug(`Error when retrieving the patch. Code ${patchResponse.status} : ${patchResponse.statusText}, message : "${err}".`);
+        }
+      } catch (e) {
+        reject(e);
       }
-    } catch (e) {
-      return;
-    }
-    debug('Requested patch version', datasCache.patch);
+      debug('Requested patch version', datasCache.patch);
+      resolve();
+    });
   }
 
-  async function requestLocale() {
-    debug('Requesting locale');
-    const locale = window.leagueTooltips.locale;
-    try {
-      const localeResponse = await fetch(`${BASE_ROUTE}locale/${locale}`);
-      if (!datasCache.locales) {
-        datasCache.locales = {};
+  function requestLocale() {
+    return new Promise(async (resolve, reject) => {
+      debug('Requesting locale');
+      const locale = window.leagueTooltips.locale;
+      try {
+        const localeResponse = await fetch(`${BASE_ROUTE}locale/${locale}`);
+        if (!datasCache.locales) {
+          datasCache.locales = {};
+        }
+        datasCache.locales[locale] = await localeResponse.json();
+        const err = datasCache.locales[locale].err;
+        if (!localeResponse.status.toString().startsWith('2') || err) {
+          debug(`Error when retrieving the locale. Code ${localeResponse.status} : ${localeResponse.statusText}, message : "${err}".`);
+        }
+      } catch (e) {
+        reject(e);
       }
-      datasCache.locales[locale] = await localeResponse.json();
-      const err = datasCache[`locale_${locale}`].err;
-      if (!localeResponse.status.toString().startsWith('2') || err) {
-        debug(`Error when retrieving the locale. Code ${localeResponse.status} : ${localeResponse.statusText}, message : "${err}".`);
-      }
-    } catch (e) {
-      return;
-    }
-    debug('Requested locale', locale);
+      debug('Requested locale', locale);
+      resolve();
+    });
   }
 
-  async function requestLoadingTemplate() {
-    debug('Requesting loading template');
-    try {
-      const loadingHtmlResponse = await fetch(`${BASE_ROUTE}html/loading.html`);
-      datasCache.loadingHtml = await loadingHtmlResponse.text();
-    } catch (e) {
-      datasCache.loadingHtml =
-        `<div class="league-tooltip__info">
-          <img src="<%= gifLink %>" alt="Loading ..." />
-        </div>`;
-      return;
-    }
-    debug('Requested loading template');
+  function requestLoadingTemplate() {
+    return new Promise(async (resolve, reject) => {
+      debug('Requesting loading template');
+      try {
+        const loadingHtmlResponse = await fetch(`${BASE_ROUTE}html/loading.html`);
+        datasCache.loadingHtml = await loadingHtmlResponse.text();
+      } catch (e) {
+        datasCache.loadingHtml =
+          `<div class="league-tooltip__info">
+            <img src="<%= gifLink %>" alt="Loading ..." />
+          </div>`;
+        reject(e);
+      }
+      debug('Requested loading template');
+      resolve();
+    });
   }
 
-  async function requestErrorTemplate() {
-    debug('Requesting error template');
-    try {
-      const errorHtmlResponse = await fetch(`${BASE_ROUTE}html/error.html`);
-      datasCache.errorHtml = await errorHtmlResponse.text();
-    } catch (e) {
-      datasCache.errorHtml =
-        `<div class="league-tooltip__info">
-          <h1 class="league-tooltip__title"><%= error %></h1>
-        </div>`;
-      return;
-    }
-    debug('Requested error template');
+  function requestErrorTemplate() {
+    return new Promise(async (resolve, reject) => {
+      debug('Requesting error template');
+      try {
+        const errorHtmlResponse = await fetch(`${BASE_ROUTE}html/error.html`);
+        datasCache.errorHtml = await errorHtmlResponse.text();
+      } catch (e) {
+        datasCache.errorHtml =
+          `<div class="league-tooltip__info">
+            <h1 class="league-tooltip__title"><%= error %></h1>
+          </div>`;
+        reject(e);
+      }
+      debug('Requested error template');
+      resolve();
+    });
   }
 
   const tooltip = {
@@ -214,7 +226,7 @@ import LeagueTooltipsDebug from 'debug';
     // If the patch is empty or errored, retry
     if (!datasCache.patch || datasCache.patch.err) {
       debug('Patch empty or errored : requesting patch version');
-      requestPatchVersion();
+      await requestPatchVersion();
     }
     if (!datasCache.patch) {
       debug('Patch still empty : display error');
@@ -234,7 +246,7 @@ import LeagueTooltipsDebug from 'debug';
     if (!{}.hasOwnProperty.call(datasCache, 'locales') ||
         !{}.hasOwnProperty.call(datasCache.locales, locale)) {
       debug('Requesting locale', locale);
-      requestLocale();
+      await requestLocale();
       debug('Requested locale', locale);
     }
     locales = datasCache.locales[locale];
@@ -319,13 +331,15 @@ import LeagueTooltipsDebug from 'debug';
     tooltip.adjustBox();
   };
 
-  function initTips() {
+  async function initTips() {
     debug('Initializing league-tooltips');
 
-    requestPatchVersion();
-    requestLocale();
-    requestLoadingTemplate();
-    requestErrorTemplate();
+    await Promise.all([
+      requestPatchVersion(),
+      requestLocale(),
+      requestLoadingTemplate(),
+      requestErrorTemplate(),
+    ]);
 
     debug('Creating tooltip element');
     const tooltipElementDiv = document.createElement('div');
