@@ -25,7 +25,7 @@ import LeagueTooltipsDebug from 'debug';
 
   const datasCache = {};
 
-  async function loadPatchVersion() {
+  async function requestPatchVersion() {
     debug('Requesting patch version');
     try {
       const patchResponse = await fetch(`${BASE_ROUTE}patch`);
@@ -40,7 +40,7 @@ import LeagueTooltipsDebug from 'debug';
     debug('Requested patch version', datasCache.patch);
   }
 
-  async function loadLocale() {
+  async function requestLocale() {
     debug('Requesting locale');
     const locale = window.leagueTooltips.locale;
     try {
@@ -56,7 +56,7 @@ import LeagueTooltipsDebug from 'debug';
     debug('Requested locale', locale);
   }
 
-  async function loadLoadingTemplate() {
+  async function requestLoadingTemplate() {
     debug('Requesting loading template');
     try {
       const loadingHtmlResponse = await fetch(`${BASE_ROUTE}html/loading.html`);
@@ -71,7 +71,7 @@ import LeagueTooltipsDebug from 'debug';
     debug('Requested loading template');
   }
 
-  async function loadErrorTemplate() {
+  async function requestErrorTemplate() {
     debug('Requesting error template');
     try {
       const errorHtmlResponse = await fetch(`${BASE_ROUTE}html/error.html`);
@@ -211,7 +211,7 @@ import LeagueTooltipsDebug from 'debug';
     // If the patch is empty or errored, retry
     if (!datasCache.patch || datasCache.patch.err) {
       debug('Patch empty or errored : requesting patch version');
-      loadPatchVersion();
+      requestPatchVersion();
     }
     if (!datasCache.patch) {
       debug('Patch still empty : display error');
@@ -309,10 +309,10 @@ import LeagueTooltipsDebug from 'debug';
   function initTips() {
     debug('Initializing league-tooltips');
 
-    loadPatchVersion();
-    loadLocale();
-    loadLoadingTemplate();
-    loadErrorTemplate();
+    requestPatchVersion();
+    requestLocale();
+    requestLoadingTemplate();
+    requestErrorTemplate();
 
     debug('Creating tooltip element');
     const tooltipElementDiv = document.createElement('div');
