@@ -197,7 +197,6 @@ import LeagueTooltipsDebug from 'debug';
     let dataType = null;
     let dataParam = null;
     ALLOWED_DATAS.forEach((allowedData) => {
-      debug(allowedData);
       if (dataset[allowedData]) {
         dataType = allowedData;
         dataParam = dataset[allowedData];
