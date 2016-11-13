@@ -235,6 +235,7 @@ Every mouse hover will launch a query to the `/tooltips/` api route (if not stor
 - [ ] Use the retrieved [languages strings](https://developer.riotgames.com/api/methods#!/1055/3627) to show the ratios names in the champion spells
 - [ ] IE9 compatibility
 - [ ] Champion passives
+- [ ] Display 'Energy' instead of 'Mana' for manaless champions
 - [ ] Allow to choose between setting the data id or the data key in `data-*`
 - [ ] Add the mouseover listener to the newly created tooltips in the DOM
 - [ ] Make the API return the proper HTTP error code (usually always 200)
