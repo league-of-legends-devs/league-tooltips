@@ -18,7 +18,7 @@ import LeagueTooltipsDebug from 'debug';
   if (!BASE_ROUTE_FROM_CONFIG) {
     debug('[league-tooltips] $BASE_ROUTE is not set');
   }
-  const BASE_ROUTE = BASE_ROUTE_FROM_CONFIG ? `${BASE_ROUTE_FROM_CONFIG}/` : '/tooltips/';
+  const BASE_ROUTE = BASE_ROUTE_FROM_CONFIG || '/tooltips/';
   debug('Base route', BASE_ROUTE);
 
   const ALLOWED_DATAS = ['champion', 'item', 'summonerspell', 'rune', 'mastery', 'championspell'];
