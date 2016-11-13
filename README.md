@@ -8,6 +8,8 @@ Express middleware for League of Legends tooltips : champions, items, summoner s
 
 [more screenshots here](PREVIEWS.md)
 
+## Demo : [here](https://tooltips.lol-item-sets-generator.org/)
+
 ## Compatibility
 
 ### Server
@@ -23,8 +25,6 @@ Working on :
 ## Installation
 
 `npm install --save league-tooltips`
-
-## Demo : [here](https://tooltips.lol-item-sets-generator.org/)
 
 ## How to use
 
