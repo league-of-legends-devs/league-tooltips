@@ -6,6 +6,7 @@
 
 * [Server] Fix requested language strings endpoint always returning the same language regardless the given locale
 * [Client] Make the tooltip box no longer overflows after it is rendered with the datas
+* [Client] Fix unwanted ending '/' on the base route
 
 ## **Added :**
 
