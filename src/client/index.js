@@ -303,6 +303,8 @@ import LeagueTooltipsDebug from 'debug';
       data: jsonData,
       template: templateHtml,
     };
+
+    tooltip.adjustBox();
   };
 
   function initTips() {
