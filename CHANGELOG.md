@@ -1,6 +1,6 @@
 # league-tooltips - change log
 
-# Current
+# 1.5.0 (Nov. 13th 2016)
 
 ## **Fixed :**
 
