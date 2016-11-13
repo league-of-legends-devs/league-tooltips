@@ -8,7 +8,7 @@
     <div class="clearfix"></div>
     <ul class="league-tooltip__tags league-tooltip__tags--champion">
       <% data.tags.forEach(function (tag) { %>
-        <li class="league-tooltip__tag">#<%= tag %></li>
+        <li class="league-tooltip__tag">#<%= locale[tag] || tag %></li>
       <% }) %>
     </ul>
     <div class="league-tooltip__champion-infos">
@@ -20,16 +20,16 @@
   </div>
   <div class="league-tooltip__right-panel">
     <table class="league-tooltip__stats">
-      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column">Health</td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.hp %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.hpperlevel %></span>)</td></tr>
-      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column">Health / 5s</td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.hpregen %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.hpregenperlevel %></span>)</td></tr>
-      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column">Mana</td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.mp %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.mpperlevel %></span>)</td></tr>
-      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column">Mana / 5s</td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.mpregen %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.mpregenperlevel %></span>)</td></tr>
-      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column">Move Speed</td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.movespeed %></span></td></tr>
-      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column">Attack Damage</td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.attackdamage %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.attackdamageperlevel %></span>)</td></tr>
-      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column">Attack Speed</td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= _.round(0.625/(1+data.stats.attackspeedoffset), 3) %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.attackspeedperlevel %>%</span>)</td></tr>
-      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column">Attack Range</td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.attackrange %></span></td></tr>
-      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column">Armor</td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.armor %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.armorperlevel %></span>)</td></tr>
-      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column">Magic resist</td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.spellblock %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.spellblockperlevel %></span>)</td></tr>
+      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column"><%= locale.FlatHPPoolMod %></td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.hp %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.hpperlevel %></span>)</td></tr>
+      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column"><%= locale.FlatHPRegenMod %></td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.hpregen %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.hpregenperlevel %></span>)</td></tr>
+      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column"><%= locale.FlatMPPoolMod %></td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.mp %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.mpperlevel %></span>)</td></tr>
+      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column"><%= locale.FlatMPRegenMod %></td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.mpregen %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.mpregenperlevel %></span>)</td></tr>
+      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column"><%= locale.FlatMovementSpeedMod %></td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.movespeed %></span></td></tr>
+      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column"><%= locale.FlatPhysicalDamageMod %></td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.attackdamage %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.attackdamageperlevel %></span>)</td></tr>
+      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column"><%= locale.FlatAttackSpeedMod %></td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= _.round(0.625/(1+data.stats.attackspeedoffset), 3) %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.attackspeedperlevel %>%</span>)</td></tr>
+      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column"><%= locale.Range %></td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.attackrange %></span></td></tr>
+      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column"><%= locale.FlatArmorMod %></td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.armor %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.armorperlevel %></span>)</td></tr>
+      <tr class="league-tooltip__stat"><td class="league-tooltip__stat-column"><%= locale.FlatSpellBlockMod %></td><td class="league-tooltip__stat-column"><span class="league-tooltip__stat-base"><%= data.stats.spellblock %></span> (+<span class="league-tooltip__stat-perlevel"><%= data.stats.spellblockperlevel %></span>)</td></tr>
     </table>
   </div>
   <div class="clearfix"></div>

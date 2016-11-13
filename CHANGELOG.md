@@ -12,6 +12,7 @@
 
 ## **Added :**
 
+* [Client] Use the retrieved languages strings in order to display the proper language
 * [Demo] Add Yarn support for the deploy script
 * [Demo] Exclude eslint
 * [Demo] Fix public folder not found when the demo is ran outside its directory

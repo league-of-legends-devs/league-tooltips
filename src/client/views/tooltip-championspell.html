@@ -2,7 +2,7 @@
   <div class="league-tooltip__title-container">
     <div class="league-tooltip__image" style="background-image: url(//ddragon.leagueoflegends.com/cdn/<%= patchVersion.patch %>/img/sprite/<%= data.image.sprite %>); background-position: -<%= data.image.x %>px -<%= data.image.y %>px; width: <%= data.image.w %>px; height: <%= data.image.h %>px;"></div>
     <h1 class="league-tooltip__title">[<%= _.last(id.split('.')) %>] <%= data.name %></h1>
-    <p><span class="league-tooltip__champion-title"><%= _.template(data.resource, { interpolate: /{{([\s\S]+?)}}/g })({ cost: data.costBurn }) %></span> (<%= data.rangeBurn %> range)</p>
+    <p><span class="league-tooltip__champion-title"><%= _.template(data.resource, { interpolate: /{{([\s\S]+?)}}/g })({ cost: data.costBurn }) %></span> (<%= _.lowerCase(locale.Range) %> : <%= data.rangeBurn %>)</p>
   </div>
   <div class="clearfix"></div>
   <p class="league-tooltip__description">

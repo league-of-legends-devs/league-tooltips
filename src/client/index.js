@@ -45,8 +45,11 @@ import LeagueTooltipsDebug from 'debug';
     const locale = window.leagueTooltips.locale;
     try {
       const localeResponse = await fetch(`${BASE_ROUTE}locale/${locale}`);
-      datasCache.locale = await localeResponse.json();
-      const err = datasCache.locale.err;
+      if (!datasCache.locales) {
+        datasCache.locales = {};
+      }
+      datasCache.locales[locale] = await localeResponse.json();
+      const err = datasCache[`locale_${locale}`].err;
       if (!localeResponse.status.toString().startsWith('2') || err) {
         debug(`Error when retrieving the locale. Code ${localeResponse.status} : ${localeResponse.statusText}, message : "${err}".`);
       }
@@ -226,6 +229,16 @@ import LeagueTooltipsDebug from 'debug';
     }
 
     const locale = window.leagueTooltips.locale;
+
+    let locales = {};
+    if (!{}.hasOwnProperty.call(datasCache, 'locales') ||
+        !{}.hasOwnProperty.call(datasCache.locales, locale)) {
+      debug('Requesting locale', locale);
+      requestLocale();
+      debug('Requested locale', locale);
+    }
+    locales = datasCache.locales[locale];
+
     const key = `${dataParam}_${locale}`;
 
     let templateHtml = null;
@@ -287,7 +300,7 @@ import LeagueTooltipsDebug from 'debug';
 
     try {
       debug('Rendering datas in template');
-      this.tooltipElement.innerHTML = tooltipTemplate(jsonData);
+      this.tooltipElement.innerHTML = tooltipTemplate({ ...jsonData, locale: locales.locale.data });
       debug('Rendered datas in template');
     } catch (e) {
       debug('Fail to render datas in template : displaying error');

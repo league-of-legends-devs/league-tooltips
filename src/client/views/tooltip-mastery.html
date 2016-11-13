@@ -2,13 +2,13 @@
   <div class="league-tooltip__title-container">
     <div class="league-tooltip__image" style="background-image: url(//ddragon.leagueoflegends.com/cdn/<%= patchVersion.patch %>/img/sprite/<%= data.image.sprite %>); background-position: -<%= data.image.x %>px -<%= data.image.y %>px; width: <%= data.image.w %>px; height: <%= data.image.h %>px;"></div>
     <h1 class="league-tooltip__title"><%= data.name %></h1>
-    <p class="league-tooltip__title-small"><%= data.masteryTree %></p>
+    <p class="league-tooltip__title-small"><%= locale['mastery' + data.masteryTree] || data.masteryTree %></p>
   </div>
   <div class="clearfix"></div>
   <p class="league-tooltip__mastery-ranks"><%= data.ranks %> ranks</p>
   <ul>
-    <% data.description.forEach(function (line) { %>
-      <li><%= line %></li>
+    <% data.description.forEach(function (line, i) { %>
+      <li>(<%= i+1 %>) <%= line %></li>
     <% }) %>
   </ul>
 </div>

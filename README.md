@@ -232,7 +232,6 @@ Every mouse hover will launch a query to the `/tooltips/` api route (if not stor
 ## TODO
 
 ### Release :
-- [ ] Use the retrieved [languages strings](https://developer.riotgames.com/api/methods#!/1055/3627) to show the ratios names in the champion spells
 - [ ] IE9 compatibility
 - [ ] Champion passives
 - [ ] Display 'Energy' instead of 'Mana' for manaless champions
