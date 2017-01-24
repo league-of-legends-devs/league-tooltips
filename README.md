@@ -248,7 +248,7 @@ Every mouse hover will launch a query to the `/tooltips/` api route (if not stor
 - [ ] Maybe serve the rendered tooltip.html file with express ? => { renderServerSide : true } ?
 - [ ] Custom tooltip.html in middleware config
 - [ ] Start the queries before the mouseover event triggers and cache the results
-- [ ] Export the client files in a `league-tooltips-client` module with the Universal Module Definition
+- [ ] Export the client files in a `league-tooltips-client` module with the Universal Module Definition (with [unpkg](https://unpkg.com))
 - [ ] Cancel the client requests if the user no longer hovers the tooltip element (RxJS style ?)
 
 ## License
