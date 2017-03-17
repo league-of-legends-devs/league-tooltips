@@ -42,7 +42,7 @@ echo "Building : done !"
 
 ## Run with pm2
 echo "Running PM2 ..."
-pm2 startOrRestart ecosystem.json5
+pm2 startOrRestart ecosystem.json5 --env=production
 
 echo "Deployed successfully !"
 printf "`date +%Y-%m-%d` : \n$(git show --name-status)\n\n" >> deploy.log
