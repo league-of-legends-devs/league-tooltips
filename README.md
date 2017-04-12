@@ -1,8 +1,11 @@
-# league-tooltips ([NPM link](https://www.npmjs.com/package/league-tooltips))
+# league-tooltips
 
-Express middleware for League of Legends tooltips : champions, items, summoner spells, runes, masteries and champion spells.
+[![npm](https://img.shields.io/npm/dt/league-tooltips.svg)](https://nodei.co/npm/league-tooltips)
+[![Known Vulnerabilities](https://snyk.io/test/npm/league-tooltips/badge.svg)](https://snyk.io/test/npm/league-tooltips)
 
-[![npm](https://img.shields.io/npm/dt/league-tooltips.svg)]() [![Known Vulnerabilities](https://snyk.io/test/npm/league-tooltips/badge.svg)](https://snyk.io/test/npm/league-tooltips)
+[![NPM](https://nodei.co/npm/league-tooltips.png?downloads=true&downloadRank=true)](https://nodei.co/npm/league-tooltips)
+
+> Express middleware for League of Legends tooltips : champions, items, summoner spells, runes, masteries and champion spells.
 
 ![Champion tooltip](previews/champion.png)
 
