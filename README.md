@@ -1,9 +1,12 @@
 # league-tooltips
 
-[![npm](https://img.shields.io/npm/dt/league-tooltips.svg)](https://nodei.co/npm/league-tooltips)
-[![Known Vulnerabilities](https://snyk.io/test/npm/league-tooltips/badge.svg)](https://snyk.io/test/npm/league-tooltips)
+[![npm version][version-badge]][version-url]
+[![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-url]
+[![dependency status][dependency-badge]][dependency-url]
+[![devdependency status][devdependency-badge]][devdependency-url]
+[![downloads][downloads-badge]][downloads-url]
 
-[![NPM](https://nodei.co/npm/league-tooltips.png?downloads=true&downloadRank=true)](https://nodei.co/npm/league-tooltips)
+[![NPM][npm-stats-badge]][npm-stats-url]
 
 > Express middleware for League of Legends tooltips : champions, items, summoner spells, runes, masteries and champion spells.
 
@@ -276,3 +279,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+[version-badge]: https://img.shields.io/npm/v/league-tooltips.svg
+[version-url]: https://www.npmjs.com/package/league-tooltips
+[vulnerabilities-badge]: https://snyk.io/test/npm/league-tooltips/badge.svg
+[vulnerabilities-url]: https://snyk.io/test/npm/league-tooltips
+[dependency-badge]: https://david-dm.org/ilshidur/league-tooltips.svg
+[dependency-url]: https://david-dm.org/ilshidur/league-tooltips
+[devdependency-badge]: https://david-dm.org/ilshidur/league-tooltips/dev-status.svg
+[devdependency-url]: https://david-dm.org/ilshidur/league-tooltips#info=devDependencies
+[downloads-badge]: https://img.shields.io/npm/dt/league-tooltips.svg
+[downloads-url]: https://www.npmjs.com/package/league-tooltips
+[npm-stats-badge]: https://nodei.co/npm/league-tooltips.png?downloads=true&downloadRank=true
+[npm-stats-url]: https://nodei.co/npm/league-tooltips
