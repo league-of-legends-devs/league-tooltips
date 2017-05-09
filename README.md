@@ -1,5 +1,7 @@
 # league-tooltips
 
+![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)
+
 [![npm version][version-badge]][version-url]
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-url]
 [![dependency status][dependency-badge]][dependency-url]
