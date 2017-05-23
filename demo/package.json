@@ -1,6 +1,6 @@
 {
   "name": "league-tooltips-demo",
-  "private": "true",
+  "private": true,
   "version": "1.0.0",
   "description": "League tooltips module demo.",
   "main": "app.js",
@@ -34,6 +34,6 @@
   },
   "homepage": "https://github.com/Ilshidur/league-tooltips#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "4.15.3"
   }
 }
