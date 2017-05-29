@@ -1,6 +1,11 @@
 # league-tooltips - change log
 
-# 1.5.1 (Nov. 13th 2016)
+# 1.5.2 (May. 26th 2017)
+
+* Update dependencies
+* Fix license
+
+# 1.5.1 (May. 23th 2017)
 
 * Update dependencies
 
