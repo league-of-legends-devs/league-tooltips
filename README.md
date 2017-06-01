@@ -1,5 +1,7 @@
 # league-tooltips
 
+> Express middleware for League of Legends tooltips : champions, items, summoner spells, runes, masteries and champion spells.
+
 ![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)
 
 [![npm version][version-badge]][version-url]
@@ -9,8 +11,6 @@
 [![downloads][downloads-badge]][downloads-url]
 
 [![NPM][npm-stats-badge]][npm-stats-url]
-
-> Express middleware for League of Legends tooltips : champions, items, summoner spells, runes, masteries and champion spells.
 
 ![Champion tooltip](previews/champion.png)
 
