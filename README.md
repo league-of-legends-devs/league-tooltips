@@ -16,6 +16,8 @@
 
 [more screenshots here](PREVIEWS.md)
 
+This project uses the Riot API **V2**, which is deprecated. An update is in current development for the V3 API and will be out under the version _0.5.0_.
+
 ## Demo : [here](https://tooltips.lol-item-sets-generator.org/)
 
 ## Compatibility
