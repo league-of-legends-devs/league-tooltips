@@ -124,9 +124,12 @@ class Router {
 
     const fileName = this.opts.fileName || 'league-tips.min.js';
     const originalClientFile = fs.readFileSync(path.resolve(__dirname, '../client', 'league-tips.min.js'), { encoding: 'utf-8' });
-    const clientFile = originalClientFile.replace('$BASE_ROUTE', `'${this.route}'`);
     debug(`Serving ${fileName} with ${this.route} as $BASE_ROUTE`);
     router.get(`/${fileName}`, (req, res) => {
+      const contentRoute = res.locals.tooltipsRoute;
+      // TODO: Find a workaround to the following line replacing a variable the content of the entire
+      // bundled script on each client request.
+      const clientFile = originalClientFile.replace('$BASE_ROUTE', `'${contentRoute}'`);
       debug('Serving', fileName);
       res.setHeader('Content-Type', 'application/javascript');
       res.send(clientFile);
@@ -138,11 +141,11 @@ class Router {
     });
     debug(`Served ${fileName}`);
     debug('Serving views');
-    router.use('/html/loading.html', (req, res) => {
+    router.get('/html/loading.html', (req, res) => {
       debug('Serving', 'loading.html');
       res.sendFile(path.resolve(__dirname, '../client/views', 'loading.html'));
     });
-    router.use('/html/error.html', (req, res) => {
+    router.get('/html/error.html', (req, res) => {
       debug('Serving', 'error.html');
       res.sendFile(path.resolve(__dirname, '../client/views', 'error.html'));
     });
