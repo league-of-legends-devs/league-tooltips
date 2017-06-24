@@ -127,8 +127,8 @@ class Router {
     debug(`Serving ${fileName} with ${this.route} as $BASE_ROUTE`);
     router.get(`/${fileName}`, (req, res) => {
       const contentRoute = res.locals.tooltipsRoute;
-      // TODO: Find a workaround to the following line replacing a variable the content of the entire
-      // bundled script on each client request.
+      // TODO: Find a workaround to the following line replacing a variable in the content
+      // of the entire bundled script on each client request.
       const clientFile = originalClientFile.replace('$BASE_ROUTE', `'${contentRoute}'`);
       debug('Serving', fileName);
       res.setHeader('Content-Type', 'application/javascript');
