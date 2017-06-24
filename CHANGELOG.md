@@ -1,5 +1,13 @@
 # league-tooltips - change log
 
+# 1.6.1 (June. 25th 2017)
+
+* Fix package.json file typos
+
+# 1.6.0 (June. 25th 2017)
+
+* Fix #3
+
 # 1.5.2 (May. 26th 2017)
 
 * Update dependencies
