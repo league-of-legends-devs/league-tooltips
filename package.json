@@ -1,6 +1,6 @@
 {
   "name": "league-tooltips",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "League of Legends tooltip for champions, items ... (express middleware).",
   "main": "src/index.js",
   "scripts": {
@@ -35,11 +35,11 @@
   "homepage": "https://github.com/Ilshidur/league-tooltips#readme",
   "dependencies": {
     "babel-polyfill": "6.23.0",
-    "debug": "2.6.8"
+    "debug": "2.6.8",
     "express": "4.15.3",
     "lodash": "4.17.4",
     "node-cache": "4.1.1",
-    "node-rest-client": "3.1.0"
+    "node-rest-client": "3.1.0",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
