@@ -35,14 +35,11 @@
   "homepage": "https://github.com/Ilshidur/league-tooltips#readme",
   "dependencies": {
     "babel-polyfill": "6.23.0",
-    "debug": "2.6.8",
-    "eslint-formatter-pretty": "1.1.0",
-    "eslint-plugin-babel": "4.1.1",
+    "debug": "2.6.8"
     "express": "4.15.3",
     "lodash": "4.17.4",
     "node-cache": "4.1.1",
-    "node-rest-client": "3.1.0",
-    "snyk": "^1.32.0",
+    "node-rest-client": "3.1.0"
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
@@ -58,6 +55,8 @@
     "del": "2.2.2",
     "eslint": "3.19.0",
     "eslint-config-airbnb": "15.0.1",
+    "eslint-formatter-pretty": "1.1.0",
+    "eslint-plugin-babel": "4.1.1",
     "eslint-plugin-import": "2.3.0",
     "gulp": "3.9.1",
     "gulp-babel": "6.1.2",
@@ -68,6 +67,7 @@
     "gulp-sourcemaps": "2.6.0",
     "gulp-uglify": "2.1.2",
     "run-sequence": "1.2.2",
+    "snyk": "^1.32.0",
     "webpack-stream": "3.2.0"
   },
   "snyk": true

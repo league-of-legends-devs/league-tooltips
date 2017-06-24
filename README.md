@@ -16,7 +16,7 @@
 
 [more screenshots here](PREVIEWS.md)
 
-This project uses the Riot API **V2**, which is deprecated. An update is in current development for the V3 API and will be out under the version _0.5.0_.
+This project uses the Riot API **V2**, which is deprecated. An update is in current development for the V3 API and will be out under the version _1.6.0_.
 
 ## Demo : [here](https://tooltips.lol-item-sets-generator.org/)
 
@@ -286,6 +286,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Anyway, if you earn money on my open source work, I will fucking end you :)
 
 [version-badge]: https://img.shields.io/npm/v/league-tooltips.svg
 [version-url]: https://www.npmjs.com/package/league-tooltips
