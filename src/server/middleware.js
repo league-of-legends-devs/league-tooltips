@@ -16,6 +16,7 @@ export default (apiKey, region, opts = {}) => {
   debug('Initializing base router');
   const router = express();
   router.use(route, (req, res, next) => {
+    debug('App mount path', req.app.mountpath);
     // Include the mount path of the application in the middleware route
     res.locals.tooltipsRoute = path.join(req.app.mountpath, route);
     next();
