@@ -1,5 +1,9 @@
 # league-tooltips - change log
 
+# 1.6.3 (June. 29th 2017)
+
+* Debug log of app mount path
+
 # 1.6.2 (June. 26th 2017)
 
 * Fix README docs
