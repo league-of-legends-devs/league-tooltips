@@ -41,10 +41,10 @@ Working on :
 
 ### Server :
 ```javascript
-var express = require('express');
-var leagueTips = require('league-tooltips');
+const express = require('express');
+const leagueTips = require('league-tooltips');
 
-var app = express();
+const app = express();
 
 app.use(leagueTips('RIOT_API_KEY', leagueTips.REGIONS.EUROPE_WEST));
 
