@@ -186,7 +186,7 @@ CORS properties. No CORS if this property is undefined.
 The datas can be cached in two ways : in-memory caching (by default) or with [Redis](https://redis.io).
 
 * `stdTTL`: (Number), defaults to `60*60*12` (43200 seconds)
-* `redis`: (Number), defaults to `60*60*12` (43200 seconds)
+* `redis`:
   * `host`: (String), defaults to `'localhost'`
   * `port`: (Integer), defaults to `6379`
   * `host`: (String), defaults to `'league-tooltips_'`
