@@ -16,11 +16,7 @@ then
 	echo "PM2 already installed."
 else
 	echo "Installing PM2 ..."
-	if which yarn > /dev/null; then
-		yarn global add pm2
-	else
-		npm install pm2 -g
-	fi
+	npm install pm2 -g
 	echo "Installed PM2 !"
 fi
 
