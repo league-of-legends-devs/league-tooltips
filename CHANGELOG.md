@@ -1,5 +1,20 @@
 # league-tooltips - change log
 
+# 2.0.0 (July 7th 2017)
+
+## **BREAKING CHANGES :**
+
+* [Server] Cache : removed `checkperiod` option.
+* [Server] Options : removed `protocol` option.
+
+## **Changes :**
+
+* Now uses the V3 version of the Riot API.
+
+## **Features :**
+
+* [Server] Caching with [Redis](https://redis.io). More details in the ['cache' section in the README](https://github.com/league-of-legends-devs/league-tooltips#--cache-object);
+
 # 1.6.3 (June. 29th 2017)
 
 * Debug log of app mount path

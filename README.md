@@ -16,8 +16,6 @@
 
 [more screenshots here](PREVIEWS.md)
 
-This project uses the Riot API **V2**, which is deprecated. An update is in current development for the V3 API and will be out under the version _2.0.0_.
-
 ## Demo : [here](https://tooltips.lol-item-sets-generator.org/)
 
 ## Compatibility
@@ -48,7 +46,7 @@ var leagueTips = require('league-tooltips');
 
 var app = express();
 
-app.use(leagueTips('RIOT_API_KEY', 'euw'));
+app.use(leagueTips('RIOT_API_KEY', leagueTips.REGIONS.EUROPE_WEST));
 
 app.listen(3000);
 ```
@@ -118,9 +116,20 @@ The Riot API key. You can get one [here](https://developer.riotgames.com/).
 **required**
 
 The location of the servers to query.
-Riot has multiple servers across the world at different locations.
+Riot has multiple servers across the world at different locations. They are exported in the `REGIONS` constant.
 
-Allowed values : `br`, `eune`, `euw`, `jp`, `kr`, `lan`, `las`, `na`, `oce`, `pbe`, `ru` and `tr`.
+Allowed values :
+* `REGIONS.BRAZIL`: `'br'`
+* `REGIONS.EUROPE`: `'eune'`
+* `REGIONS.EUROPE_WEST`: `'euw'`
+* `REGIONS.KOREA`: `'kr'`
+* `REGIONS.JAPAN`: `'jp'`
+* `REGIONS.LATIN_AMERICA_NORTH`: `'lan'`
+* `REGIONS.LATIN_AMERICA_SOUTH`: `'las'`
+* `REGIONS.NORTH_AMERICA`: `'na'`
+* `REGIONS.OCEANIA`: `'oce'`
+* `REGIONS.RUSSIA`: `'ru'`
+* `REGIONS.TURKEY`: `'tr'`
 
 ### `options`
 
@@ -130,15 +139,18 @@ Allowed values : `br`, `eune`, `euw`, `jp`, `kr`, `lan`, `las`, `na`, `oce`, `pb
 options = {
   url: '/',
   fileName: 'league-tips.min.js',
-  protocol: 'https',
   cors: { // the CORS default options are only set if the 'cors' option is defined
     origin: '*',
     methods: 'GET,PUT,POST,DELETE',
     headers: 'Content-Type'
   },
   cache: {
-    stdTTL: 60*60*12,
-    checkPeriod: 60*60*12
+    stdTTL: 60 * 60 * 12,
+    redis: { // the Redis default options are only set if the 'redis' option is defined
+      host: 'localhost',
+      port: 6379,
+      prefix: 'league-tooltips_'
+    }
   }
 };
 ```
@@ -161,14 +173,6 @@ The name of the Javasript file that will be served to the client.
 
 will serve the file at `/tootips/league-tips.min.js`.
 
-#### - `protocol` (String)
-
-**default value** : `'https'`
-
-The HTTP protocol to use when querying the Riot API.
-
-Allowed values : `http` and `https`.
-
 #### - `cors` (Object)
 
 CORS properties. No CORS if this property is undefined.
@@ -179,10 +183,13 @@ CORS properties. No CORS if this property is undefined.
 
 #### - `cache` (Object)
 
-The [node-cache](https://www.npmjs.com/package/node-cache#options) parameters.
+The datas can be cached in two ways : in-memory caching (by default) or with [Redis](https://redis.io).
 
 * `stdTTL`: (Number), defaults to `60*60*12` (43200 seconds)
-* `checkperiod`: (Number), defaults to `60*60*12` (43200 seconds)
+* `redis`: (Number), defaults to `60*60*12` (43200 seconds)
+  * `host`: (String), defaults to `'localhost'`
+  * `port`: (Integer), defaults to `6379`
+  * `host`: (String), defaults to `'league-tooltips_'`
 
 ## Language
 
