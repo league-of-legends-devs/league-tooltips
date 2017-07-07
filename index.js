@@ -1,3 +1,4 @@
-var middleware = require('./lib/server/middleware').default;
+var middleware = require('./lib/server/middleware');
 
-module.exports = middleware;
+module.exports = exports = middleware.default;
+module.exports.REGIONS = middleware.REGIONS;

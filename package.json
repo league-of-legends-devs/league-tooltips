@@ -37,8 +37,8 @@
     "babel-polyfill": "6.23.0",
     "debug": "2.6.8",
     "express": "4.15.3",
+    "kindred-api": "^2.0.67",
     "lodash": "4.17.4",
-    "node-cache": "4.1.1",
     "node-rest-client": "3.1.0",
     "whatwg-fetch": "2.0.3"
   },
@@ -63,9 +63,7 @@
     "gulp-eslint": "3.0.1",
     "gulp-notify": "3.0.0",
     "gulp-plumber": "1.1.0",
-    "gulp-rename": "1.2.2",
     "gulp-sourcemaps": "2.6.0",
-    "gulp-uglify": "2.1.2",
     "run-sequence": "1.2.2",
     "snyk": "^1.32.0",
     "webpack-stream": "3.2.0"

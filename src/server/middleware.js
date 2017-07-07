@@ -1,6 +1,7 @@
 import express from 'express';
 import Debug from 'debug';
 import path from 'path';
+import KindredApi from 'kindred-api';
 import Router from './router';
 
 const debug = Debug('league-tooltips:middleware');
@@ -29,3 +30,5 @@ export default (apiKey, region, opts = {}) => {
 
   return router;
 };
+
+export const REGIONS = KindredApi.REGIONS;

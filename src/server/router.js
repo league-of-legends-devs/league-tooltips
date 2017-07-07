@@ -15,7 +15,7 @@ const handleDataRequest = async function handleDataRequest(dataType, req, res, n
   try {
     // 'this' is bound to an Api instance
     const data = await this.api.getData(dataType, req.params.id, locale);
-    res.send(JSON.stringify(data));
+    res.send(JSON.stringify(data)); // TODO: Use Express 5 with res.status(200).json(data); instead
     debug('Datas sent');
   } catch (err) {
     res.send(JSON.stringify({ err: err.message }));
@@ -88,7 +88,7 @@ class Router {
     debug('Served version route');
     debug('Serving datas routes');
     const sources = this.api.getSources();
-    _.values(sources).forEach((source) => {
+    _.keys(sources).forEach((source) => {
       debug(`Serving ${source} route`);
       router.get(`/${source}/:id`, (...prms) => {
         handleDataRequest.call({ api: this.api }, source, ...prms);
