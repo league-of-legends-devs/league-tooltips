@@ -39,7 +39,6 @@
     "express": "4.15.3",
     "kindred-api": "^2.0.67",
     "lodash": "4.17.4",
-    "node-rest-client": "3.1.0",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
