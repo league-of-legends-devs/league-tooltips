@@ -2,7 +2,7 @@
   "name": "league-tooltips",
   "version": "2.0.0",
   "description": "League of Legends tooltip for champions, items ... (express middleware).",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
     "build": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1",
