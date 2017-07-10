@@ -1,5 +1,11 @@
 # league-tooltips - change log
 
+# 2.0.1 (July 10th 2017)
+
+## **Fixed :**
+
+* Fix main script path
+
 # 2.0.0 (July 7th 2017)
 
 ## **BREAKING CHANGES :**
