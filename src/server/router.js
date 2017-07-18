@@ -55,8 +55,8 @@ class Router {
 
     debug('Initializing API');
     this.api = new Api(apiKey, this.region, {
-      protocol: this.opts.protocol,
       cache: this.opts.cache,
+      prod: this.opts.prod,
     });
     debug('Initialized API');
 
