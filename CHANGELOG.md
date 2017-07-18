@@ -5,6 +5,7 @@
 ## **Fixed :**
 
 * Fix main script path
+* Fix `prod` config not working
 
 # 2.0.0 (July 7th 2017)
 
