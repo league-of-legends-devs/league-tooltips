@@ -146,7 +146,7 @@ options = {
   },
   cache: {
     stdTTL: 60 * 60 * 12,
-    redis: { // the Redis default options are only set if the 'redis' option is defined
+    redis: { // the Redis default options are only set if the 'redis' option is defined, otherwise : fallback to in-memory caching
       host: 'localhost',
       port: 6379,
       prefix: 'league-tooltips_'
@@ -186,7 +186,7 @@ CORS properties. No CORS if this property is undefined.
 The datas can be cached in two ways : in-memory caching (by default) or with [Redis](https://redis.io).
 
 * `TTL`: (Number), defaults to `60*60*12` (43200 seconds)
-* `redis`:
+* `redis`: // fallback to in-memory caching if no Redis configuration
   * `host`: (String), defaults to `'localhost'`
   * `port`: (Integer), defaults to `6379`
   * `host`: (String), defaults to `'league-tooltips_'`
