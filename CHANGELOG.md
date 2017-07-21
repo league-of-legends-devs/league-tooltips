@@ -1,5 +1,11 @@
 # league-tooltips - change log
 
+# 2.0.3 - unreleased
+
+## **Fixed :**
+
+* Update GitHub path to the new one in package.json file
+
 # 2.0.2 (July 2&th 2017)
 
 ## **Changed :**

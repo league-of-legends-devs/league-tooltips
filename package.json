@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ilshidur/league-tooltips.git"
+    "url": "git+https://github.com/league-of-legends-devs/league-tooltips.git"
   },
   "keywords": [
     "league",
@@ -30,9 +30,9 @@
   "author": "Ilshidur <ilshidur@gmail.com> (https://www.nicolas-coutin.fr)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Ilshidur/league-tooltips/issues"
+    "url": "https://github.com/league-of-legends-devs/league-tooltips/issues"
   },
-  "homepage": "https://github.com/Ilshidur/league-tooltips#readme",
+  "homepage": "https://github.com/league-of-legends-devs/league-tooltips#readme",
   "dependencies": {
     "babel-polyfill": "6.23.0",
     "debug": "2.6.8",
