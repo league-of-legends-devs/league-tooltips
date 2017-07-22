@@ -151,7 +151,8 @@ options = {
       port: 6379,
       prefix: 'league-tooltips_'
     }
-  }
+  },
+  prod: false
 };
 ```
 
@@ -190,6 +191,12 @@ The datas can be cached in two ways : in-memory caching (by default) or with [Re
   * `host`: (String), defaults to `'localhost'`
   * `port`: (Integer), defaults to `6379`
   * `host`: (String), defaults to `'league-tooltips_'`
+
+#### - `prod` (Boolean)
+
+**default value** : `false`
+
+Defines wether the script runs in a production environment or not. Set to `true` for a production environment.
 
 ## Language
 
