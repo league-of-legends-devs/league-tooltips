@@ -1,5 +1,7 @@
 # league-tooltips
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/league-of-legends-devs/league-tooltips.svg)](https://greenkeeper.io/)
+
 > Express middleware for League of Legends tooltips : champions, items, summoner spells, runes, masteries and champion spells.
 
 ![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)
