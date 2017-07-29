@@ -1,12 +1,13 @@
 # league-tooltips - change log
 
-# 2.0.3 - unreleased
+# 2.0.3 (July 29th 2017)
 
 ## **Fixed :**
 
+* fix the caching with Redis that was always set to 'localhost:6379' with the same key prefix that was caused by the Riot API client (see [this issue](https://github.com/ChauTNguyen/kindred-api/issues/22))
 * Update GitHub path to the new one in package.json file
 
-# 2.0.2 (July 2&th 2017)
+# 2.0.2 (July 21th 2017)
 
 ## **Changed :**
 
