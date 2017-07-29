@@ -145,7 +145,7 @@ options = {
     headers: 'Content-Type'
   },
   cache: {
-    stdTTL: 60 * 60 * 12,
+    TTL: 60 * 60 * 12,
     redis: { // the Redis default options are only set if the 'redis' option is defined, otherwise : fallback to in-memory caching
       host: 'localhost',
       port: 6379,
