@@ -37,7 +37,7 @@
     "babel-polyfill": "6.23.0",
     "debug": "2.6.8",
     "express": "4.15.3",
-    "kindred-api": "^2.0.69",
+    "kindred-api": "^2.0.74",
     "lodash": "4.17.4",
     "whatwg-fetch": "2.0.3"
   },

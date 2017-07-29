@@ -2834,9 +2834,9 @@ kind-of@^4.0.0:
   dependencies:
     is-buffer "^1.1.5"
 
-kindred-api@^2.0.69:
-  version "2.0.73"
-  resolved "https://registry.yarnpkg.com/kindred-api/-/kindred-api-2.0.73.tgz#191d5f5ff2acdf9a4a0c1b86384cb4ec59c88951"
+kindred-api@^2.0.74:
+  version "2.0.74"
+  resolved "https://registry.yarnpkg.com/kindred-api/-/kindred-api-2.0.74.tgz#d2503006599d39eb857addb793baa69d24a494c1"
   dependencies:
     chalk "2.0.1"
     dotenv "^4.0.0"
