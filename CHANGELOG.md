@@ -148,8 +148,8 @@
 
 ## **Added :**
 
-* [debug module](https://www.npmjs.com/package/debug) added (see [here](https://github.com/Ilshidur/league-tooltips#debug))
-* [cors](https://github.com/Ilshidur/league-tooltips#--cors) option
+* [debug module](https://www.npmjs.com/package/debug) added (see [here](https://github.com/league-of-legends-devs/league-tooltips#debug))
+* [cors](https://github.com/league-of-legends-devs/league-tooltips#--cors) option
 
 # 1.1.1 (Oct. 15th 2016)
 
