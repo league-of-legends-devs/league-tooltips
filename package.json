@@ -35,8 +35,8 @@
   "homepage": "https://github.com/league-of-legends-devs/league-tooltips#readme",
   "dependencies": {
     "babel-polyfill": "6.23.0",
-    "debug": "2.6.8",
-    "express": "4.15.3",
+    "debug": "2.6.9",
+    "express": "4.16.0",
     "kindred-api": "^2.0.74",
     "lodash": "4.17.4",
     "whatwg-fetch": "2.0.3"
