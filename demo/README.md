@@ -5,7 +5,7 @@ This is the source code of the [league-tooltips demo](https://tooltips.lol-item-
 ## Install
 
 ```shell
-git clone https://github.com/Ilshidur/league-tooltips.git league-tooltips
+git clone https://github.com/league-of-legends-devs/league-tooltips.git league-tooltips
 cd $_/demo
 ```
 
@@ -20,7 +20,7 @@ sh deploy.sh
 
 MIT License
 
-Copyright (c) 2016 Ilshidur
+Copyright (c) 2017 **Nicolas Coutin**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
