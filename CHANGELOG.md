@@ -1,5 +1,11 @@
 # league-tooltips - change log
 
+# 2.0.4 (Oct. 3rd 2017)
+
+## **Fixed :**
+
+* fix multiple dependencies vulnerabilities
+
 # 2.0.3 (July 29th 2017)
 
 ## **Fixed :**
