@@ -26,7 +26,7 @@ Requires Node 4.0.0 or upper.
 
 ### Client
 
-**BEWARE !** The client part is not compatible with modern front end frameworks (with dynamic DOM elements). See the [#1](https://github.com/Ilshidur/league-tooltips/issues/1) issue for more informations.
+**BEWARE !** The client part is not compatible with modern front end frameworks (with dynamic DOM elements). See the [#1](https://github.com/league-of-legends-devs/league-tooltips/issues/1) issue for more informations.
 
 Working on :
 
@@ -235,7 +235,7 @@ Every mouse hover will launch a query to the `/tooltips/` api route (if not stor
 - [ ] Champion passives
 - [ ] Display 'Energy' instead of 'Mana' for manaless champions
 - [ ] Allow to choose between setting the data id or the data key in `data-*`
-- [ ] **Add the mouseover listener to the newly created tooltips in the DOM** (using [Mutation Observers](https://www.w3.org/TR/2014/CR-dom-20140508/#mutation-observers)) in order to be compatible with modern front end frameworks - see [#1](https://github.com/Ilshidur/league-tooltips/issues/1)
+- [ ] **Add the mouseover listener to the newly created tooltips in the DOM** (using [Mutation Observers](https://www.w3.org/TR/2014/CR-dom-20140508/#mutation-observers)) in order to be compatible with modern front end frameworks - see [#1](https://github.com/league-of-legends-devs/league-tooltips/issues/1)
 - [ ] Make the API return the proper HTTP error code (usually always 200)
 - [ ] Modular client file
 
