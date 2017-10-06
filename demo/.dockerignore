@@ -1,0 +1,6 @@
+.gitignore
+deploy.sh
+Dockerfile
+ecosystem.*
+LICENSE
+README.md

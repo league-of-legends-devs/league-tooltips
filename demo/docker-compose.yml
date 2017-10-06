@@ -1,0 +1,8 @@
+version: '3.3'
+services:
+  web:
+    build:
+      context: ../
+      dockerfile: ./demo/Dockerfile
+  redis:
+    image: 'redis:alpine'
