@@ -18,6 +18,8 @@
 
 ## Demo : [here](https://tooltips.lol-item-sets-generator.org/)
 
+[Used in production by _feeder.lol-item-sets-generator.org_](https://github.com/league-of-legends-devs/feeder.lol-item-sets-generator.org/blob/master/src/routes/tooltips.js).
+
 ## Compatibility
 
 ### Server
