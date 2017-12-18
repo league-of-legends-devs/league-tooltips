@@ -11,7 +11,7 @@ const MODULE_VERSION = require('../../package.json').version;
 
 const handleDataRequest = async function handleDataRequest(dataType, req, res, next) {
   debug('Handling data request', dataType, req.params.id);
-  const locale = req.query.locale;
+  const { locale } = req.query;
   try {
     // 'this' is bound to an Api instance
     const data = await this.api.getData(dataType, req.params.id, locale);
@@ -110,7 +110,7 @@ class Router {
     debug('Serving locales route');
     router.get('/locale/:locale', async (req, res, next) => {
       debug('Serving locale', req.params.locale);
-      const locale = req.params.locale;
+      const { locale } = req.params;
       try {
         const data = await this.api.getLocale(locale);
         res.send({ locale: data });

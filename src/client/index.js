@@ -31,7 +31,7 @@ import LeagueTooltipsDebug from 'debug';
       try {
         const patchResponse = await fetch(`${BASE_ROUTE}patch`);
         datasCache.patch = await patchResponse.json();
-        const err = datasCache.patch.err;
+        const { err } = datasCache.patch;
         if (!patchResponse.status.toString().startsWith('2') || err) {
           debug(`Error when retrieving the patch. Code ${patchResponse.status} : ${patchResponse.statusText}, message : "${err}".`);
         }
@@ -46,7 +46,7 @@ import LeagueTooltipsDebug from 'debug';
   function requestLocale() {
     return new Promise(async (resolve, reject) => {
       debug('Requesting locale');
-      const locale = window.leagueTooltips.locale;
+      const { locale } = window.leagueTooltips;
       let jsonLocale = null;
       try {
         const localeResponse = await fetch(`${BASE_ROUTE}locale/${locale}`);
@@ -56,7 +56,7 @@ import LeagueTooltipsDebug from 'debug';
         const localeData = await localeResponse.json();
         jsonLocale = localeData.locale;
         datasCache.locales[locale] = jsonLocale;
-        const err = datasCache.locales[locale].err;
+        const { err } = datasCache.locales[locale];
         if (!localeResponse.status.toString().startsWith('2') || err) {
           debug(`Error when retrieving the locale. Code ${localeResponse.status} : ${localeResponse.statusText}, message : "${err}".`);
         }
@@ -155,9 +155,9 @@ import LeagueTooltipsDebug from 'debug';
     if (e.pageX !== undefined) { // gecko, konqueror,
       tooltip.x = e.pageX;
       tooltip.y = e.pageY;
-    } else if (event !== undefined && event.x !== undefined && event.clientX === undefined) { // ie4
-      tooltip.x = event.x;
-      tooltip.y = event.y;
+    } else if (e !== undefined && e.x !== undefined && e.clientX === undefined) { // ie4
+      tooltip.x = e.x;
+      tooltip.y = e.y;
     } else if (e.clientX !== undefined) { // IE6,  IE7, IE5.5
       if (document.documentElement) {
         tooltip.x = e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
@@ -243,7 +243,7 @@ import LeagueTooltipsDebug from 'debug';
       return;
     }
 
-    const locale = window.leagueTooltips.locale;
+    const { locale } = window.leagueTooltips;
 
     let locales = {};
     if (!{}.hasOwnProperty.call(datasCache, 'locales') ||
@@ -298,7 +298,7 @@ import LeagueTooltipsDebug from 'debug';
       debug(`Requested ${dataType}/${dataParam} datas`, data);
     } else {
       debug(`Loading ${dataType} datas from cache`);
-      data = datasCache[dataType][key].data;
+      ({ data } = datasCache[dataType][key]); // For linting purposes (wtf AirBnb)
     }
 
     if (!data) {

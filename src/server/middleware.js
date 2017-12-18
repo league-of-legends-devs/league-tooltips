@@ -31,4 +31,4 @@ export default (apiKey, region, opts = {}) => {
   return router;
 };
 
-export const REGIONS = KindredApi.REGIONS;
+export const { REGIONS } = KindredApi;
