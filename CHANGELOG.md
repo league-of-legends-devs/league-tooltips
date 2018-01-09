@@ -1,5 +1,10 @@
 # league-tooltips - change log
 
+# 2.0.5 (Jan. 9th 2018)
+
+* Fixed 'for' loop that broke the tooltips
+* Updated dependencies
+
 # 2.0.4 (Oct. 3rd 2017)
 
 ## **Fixed :**
