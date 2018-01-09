@@ -364,11 +364,10 @@ import LeagueTooltipsDebug from 'debug';
 
     debug('Adding listeners to .league-tooltip elements');
     const tooltips = document.getElementsByClassName('league-tooltip');
-    for (let index = 0; index < tooltips.length; index += 1) {
-      const tooltipElement = tooltips.item(index);
+    tooltips.forEach((tooltipElement) => {
       tooltipElement.addEventListener('mouseover', tooltip.show.bind(tooltip));
       tooltipElement.addEventListener('mouseout', tooltip.hide.bind(tooltip));
-    }
+    });
     debug('Added listeners');
 
     debug('Initialized league-tooltips');
