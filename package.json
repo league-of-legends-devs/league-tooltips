@@ -38,7 +38,7 @@
     "debug": "3.1.0",
     "express": "4.16.2",
     "kindred-api": "^2.0.83",
-    "lodash": "4.17.4",
+    "lodash": "4.17.5",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
