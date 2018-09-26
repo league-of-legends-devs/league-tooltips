@@ -34,6 +34,6 @@
   },
   "homepage": "https://github.com/league-of-legends-devs/league-tooltips#readme",
   "dependencies": {
-    "express": "4.15.3"
+    "express": "4.16.0"
   }
 }
